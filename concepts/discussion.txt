@@ -1,0 +1,26 @@
+file transfer hdfs to DB
+--sqoop
+---hdfs dfs -put
+
+====================
+----PIG--language
+no store
+
+----------
+Hive graphs---HUE
+
+
+===========
+
+MR --java--BATCH--1 hr
+
+REAL TIME -- 1 min-- spark
+APACHE SPARK----databricks
+
+scala---java---python
+
+pyspark
+
+
+
+
