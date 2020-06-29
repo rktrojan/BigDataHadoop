@@ -1,0 +1,81 @@
+emp =sc.textFile("file:///home/cloudera/emp")
+
+[u'a,b',
+ u'a,c', 
+ u'2,34', 
+ u'3,45']
+
+
+emp_new = emp.map(lambda x: x.split(","))
+
+
+[
+[u'11', u'23'], 
+[u'1', u'30'], 
+[u'2', u'34'], 
+[u'3', u'45']
+]
+
+>>> emp.flatMap(lambda x:x.split(",")).collect()
+>>> emp.flatMap(lambda x:x.split(",")).collect()
+
+tokenization
+[u'a', u'b', u'a', u'c', u'2', u'34', u'3', u'45']
+----------------------------
+
+ LIST / TUPLE --no unicode---type casting
+age.toDF("age")
+
+age-----attach schema
+
+struct type and struct field--1
+case class datatype--col name
+
+Row
+
+
+rdd.toDF()
+
+----------------------------------
+
+
+
+from pyspark.sql import Row
+
+rdd = sc.parallelize([(1,22),(2,33)])
+rdd.toDF()
+
+[Row(_1=1, _2=22), Row(_1=2, _2=33)]
+
+
+rdd = sc.parallelize([Row(id=1,sal=22),Row(id=2,sal=33)])
+df2=rdd.toDF()
+
+df2.show()
+
+--DSL-- 
+----DOMAIN SPECIFIC LANGUAGE-----
+df2.select( 'id').sort( 'sal').show()
+df2.sort( 'sal').show()
+
+df2.orderBy( 'sal',ascending=False).show()
+
+
+--register Dataframe as temp table
+>>> df2.registerTempTable('emp')
+new_df=sqlCtx.sql('select id from emp order by id')
+new_df.show()
+
+
+--------------------
+
+--reading file using SQL context
+
+file1=sqlCtx.load("/user/cloudera/emp")
+file1=sqlCtx.load("/user/cloudera/emp")
+
+file1=sqlCtx.read.\
+	format("com.databricks.spark.csv").\
+	option("header","true").\
+	load("emp")
+
