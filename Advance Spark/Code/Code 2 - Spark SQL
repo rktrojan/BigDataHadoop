@@ -1,0 +1,18 @@
+
+# spark here is SParkSession that is available is Apark 2.0
+#Spark 1.6 should use SQLContext object
+
+
+spark.read()
+
+
+spark.sql()
+
+===========================
+#Spark SQL
+>>> rating_df=spark.sql("select star_rating, count(*) from people group by star_rating")
+
+#SPark Dataframe DSL	
+df.groupBy("star_rating").\
+agg(func.sum("total_votes"),func.count("review_id")).\
+show()

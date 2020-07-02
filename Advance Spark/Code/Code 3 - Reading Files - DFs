@@ -1,0 +1,92 @@
+
+=============================
+
+#Reading text file
+
+df = spark.read.text("titanic.txt")
+
+df.show()
+
+
+==========================================================
+
+#Reading CSV file
+
+=========================================================
+#download file from internet
+wget https://raw.githubusercontent.com/rktrojan/DataSciencePython/master/DataFiles/titanic.csv
+
+#local path
+/home/hadoop/titanic.csv
+
+#move to HDFS path
+
+#load in spark
+
+
+df = spark.read.csv("titanic.csv")
+
+
+df = spark.read.format("csv").option("header", "true").load("titanic.csv")
+
+df = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load("titanic.csv")
+
+#if above command fails means that you need spark csv jar
+
+wget https://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.4.0/spark-csv_2.11-1.4.0.jar 
+
+#but you need to check your scala version [here it is 2.11] before downloading the above jar
+
+
+======================================================	
+	
+#Reading JSON file	
+spark.read.json('emp.json')
+
+
+#OR
+
+sqlContext.read.json('emp.json')
+	
+
+
+
+
+======================================================	
+	
+#Reading parquet file
+	
+spark.read.parquet('new.parquet')
+spark.read.load('new.parquet')
+
+
+=============================
+
+#Reading from AWS S3 path
+
+input_bucket = 's3://amazon-reviews-pds'
+input_path = '/parquet/product_category=Books/*.parquet'
+
+df = sqlContext.read.parquet(input_bucket + input_path)
+df.show()
+
+
+--ERROR because you need Access Key and Secret for S3
+
+pyspark.sql.utils.IllegalArgumentException: u'AWS Access Key ID and Secret Access Key must be specified by setting the fs.s3.awsAccessKeyId and fs.s3.awsSecretAccessKey properties (respectively).'
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

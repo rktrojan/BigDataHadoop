@@ -1,0 +1,82 @@
+RDD -- sc ---sparkcontext---textFile
+
+RDD=sc.textFile
+DF=RDD.toDF()
+_1 _2
+attach schema -- struct-type/case-class/Row
+
+convert to DF
+-------------------------------
+
+Direct DF   --- read csv/parquet/json file using sqlcontext
+DF=sqlContext.read("")
+DF=sqlcontext.read.csv("filename")
+DF=sqlcontext.read.json("")
+
+DF=sqlcontext.read.load("parquet_file")
+
+//DF=sqlcontext.read.parquet("")
+//sqlContext.read.parquet("people.parquet")
+
+
+DF---> DSL  select/orderBy/sort
+---SPARK CORE------
+--------------------------------------
+
+SPARK SQL --SHARK
+DF ---> table/view
+DF.registerTempTable("products")
+
+sqlContext.sql("select * from products")
+
+
+------------------------------------------
+
+Hive table-- 
+
+df=sqlContext.sql('select * from imarticus.products')
+
+movie reviews
+id, rating, genre
+1,5,fight--5
+2,4,fight---5
+3,3,romance---5
+4,5,romance----5
+5,1, comedy---4
+6,4,comedy---4
+
+comedy ,4
+fight,5
+romance,5
+
+sql----select genre,max(rating) from table group by genre
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Machine Learning---PSEUDO CODE Here
+
+Spark ML Lib
+
+DF_training=spark.read("train.csv")
+7 columns
+6--features  ---- 7th target
+
+SPark ML---
+import pandas as pd
+
+from pyspark.ml.regression import LinearRegression
+
+
+linear_regression.fit(DF_training[0:5],DF_training[6])
+
+SparkSession available as 'abc'.
+
+DF_test=abc.read("testfile.csv")
+df_pred=linear_regression.predict(DF_test[0:5])
+
+
+
+
+

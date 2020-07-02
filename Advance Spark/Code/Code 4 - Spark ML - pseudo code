@@ -1,0 +1,26 @@
+----------------------PSEUDO CODE-----------
+#Machine Learning
+
+#Spark ML Lib
+
+#DF_training=spark.read("train.csv")
+#7 columns
+#6--features  ---- 7th target
+
+#SPark ML
+
+import pandas as pd
+
+from pyspark.ml.regression import LinearRegression
+
+
+linear_regression.fit(DF_training[0:5],DF_training[6])
+
+#SparkSession available as 'abc'.
+
+DF_test=abc.read("testfile.csv")
+
+df_pred=linear_regression.predict(DF_test[0:5])
+
+
+

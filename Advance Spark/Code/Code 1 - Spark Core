@@ -1,0 +1,45 @@
+SparkSession available as 'spark'.
+
+
+>>> input_bucket = 's3://amazon-reviews-pds'
+>>> input_path = '/parquet/product_category=Books/*.parquet'
+>>> df = spark.read.parquet(input_bucket + input_path)
+
+>>> df.show()
++-----------+-----------+--------------+----------+--------------+--------------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-----------+----+
+|marketplace|customer_id|     review_id|product_id|product_parent|       product_title|star_rating|helpful_votes|total_votes|vine|verified_purchase|     review_headline|         review_body|review_date|year|
++-----------+-----------+--------------+----------+--------------+--------------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-----------+----+
+|         US|   15444933|R1WWG70WK9VUCH|1848192576|     835940987|Standing Qigong f...|          5|            9|         10|   N|                Y|Informative AND i...|After attending a...| 2015-05-02|2015|
+|         US|   20595117|R1EQ3POS0RIOD5|145162445X|     574044348|A Universe from N...|          4|            4|          7|   N|                N|Between 'Nothing'...|Krauss traces the...| 2012-06-29|2012|
+|         US|   52925878|R10SRJA4VVGUBD|055341805X|     846590203|Hyacinth Girls: A...|          4|            0|          0|   Y|                N|Mysteries upon my...|Rebecca, a dental...| 2015-05-02|2015|
+|         US|   40062567| RD3268X41GM7U|0425263908|     119148606|        Bared to You|          5|            1|          1|   N|                N|"RAW, STEAMY, HYP...|\\"BARED TO YOU\\...| 2012-06-29|2012|
+|         US|   47221489|R3KGQL5X5BSJE1|1416556141|     987400385|     Healer: A Novel|          5|            0|          0|   N|                Y|  Well written story|Good characters a...| 2015-05-02|2015|
+|         US|   20709973|R3IY9A2Z7N2R49|1455523003|     181218559|The Missionary Po...|          4|            5|          7|   N|                Y|Eye opening, yet ...|This book was fas...| 2012-06-29|2012|
+|         US|   18052694|R12PGYPH9B9UVJ|0990388697|     840404589|I'm Tired of Bein...|          4|            1|          1|   N|                Y|                 JOY|A personal world ...| 2015-05-02|2015|
+|         US|   48279565|R2CA9LLJBEORNZ|0345803485|     600633062|Fifty Shades of G...|          1|            7|          7|   N|                N|This book is Twil...|I bought this boo...| 2012-06-29|2012|
+|         US|   14297627|R2C8BZMS1JRZ04|1469245167|     466321651|The Thrill of Vic...|          4|            0|          0|   N|                Y|          Four Stars|Sandra Brown is a...| 2015-05-02|2015|
+|         US|   37340439|R2F8UI9NNP6S33|0345803485|     600633062|Fifty Shades of G...|          5|            0|          9|   N|                N|Fifty shades of grey|Loved this book! ...| 2012-06-29|2012|
+|         US|   35122979|R18L06ZV927ZS0|0743477111|      43217624|Romeo and Juliet ...|          4|            0|          0|   N|                Y|Good text, but ed...|The text and comm...| 2015-05-02|2015|
+|         US|   11213632|R32NFRKUPJ3E4J|1609611543|     657488375|Wheat Belly: Lose...|          5|            1|          1|   N|                Y|         Wheat belly|This is an excell...| 2012-06-29|2012|
+|         US|   15816241|R1ZQ0M1HIMV8T9|0563551933|     412573914|Dangerous Dessert...|          5|            0|          0|   N|                Y|          Five Stars|Book in great con...| 2015-05-02|2015|
+|         US|   36748944| RKEHECW1IR9DT|0061777269|      84797790|Consciousness Bey...|          5|            0|          0|   N|                N|More evidence of ...|Consciousness Bey...| 2012-06-29|2012|
+|         US|   38261190|R3HKUZRLPR36SW|0316769487|     862964341|The Catcher in th...|          1|            1|          6|   N|                Y|Some people rave ...|This book seems t...| 2015-05-02|2015|
+|         US|   44704475|R36X05VUTXCEJQ|0307730697|      62706984|Fearless: The Und...|          4|            0|          0|   N|                Y|    American courage|For those who thi...| 2012-06-29|2012|
+|         US|   38351306|R257VQLC12S8IJ|0448439158|      27871958|Best-Ever Big Sister|          5|            0|          0|   N|                Y|My 1. 5-2yr old l...|My 1.5-2yr old lo...| 2015-05-02|2015|
+|         US|   49320969|R1DA0O932TXFV7|0375842209|      47504452|      The Book Thief|          5|            1|          1|   N|                N|Many Years Later,...|This is a book th...| 2012-06-29|2012|
+|         US|   21239776| RAF45VHW4W7HU|1402773536|     615203301|  Large Print Sudoku|          5|            1|          1|   N|                Y|          Five Stars|like the big prin...| 2015-05-02|2015|
+|         US|   39150739|R1YBB6HXVCZ8AR|0307592731|     576844294|Wild: From Lost t...|          5|            1|          1|   N|                N| A True Page-Turner!|I absolutely love...| 2012-06-29|2012|
+
++-----------+-----------+--------------+----------+--------------+--------------------+-----------+-------------+-----------+----+-----------------+--------------------+--------------------+-----------+----+
+only showing top 20 rows
+
+
+=======================================================
+
+
+>>> df
+
+DataFrame[marketplace: string, customer_id: string, review_id: string, product_id: string, product_parent: string, product_title: string, star_rating: int, helpful_votes: int, total_votes: int, vine: string, verified_purchase: string, review_headline: string, review_body: string, review_date: date, year: int]
+
+>>> df.count()
+20345657  
