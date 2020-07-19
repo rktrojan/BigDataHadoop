@@ -1,0 +1,41 @@
+wget https://raw.githubusercontent.com/rktrojan/DataSciencePython/master/DataFiles/titanic.csv
+
+ls
+
+more titanic.csv
+
+cat titanic.csv
+
+head titanic.csv
+
+#nano titanic.csv
+
+head titanic.csv
+
+hdfs dfs -put titanic.csv
+hdfs dfs -ls
+wc titanic.csv
+
+tail titanic.csv
+
+tail -5 titanic.csv
+
+#remove header using below command
+tail -887 titanic.csv > titanic_noheader.csv
+
+ls
+
+head titanic_noheader.csv
+head titanic.csv
+
+ls
+hdfs dfs -put titanic_noheader.csv
+
+tail -887 titanic.csv > titanic_noheader.xlsx
+
+ls
+
+wget https://raw.githubusercontent.com/rktrojan/DataSciencePython/master/DataFiles/titanic.csv
+
+ls
+

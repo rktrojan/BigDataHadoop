@@ -1,0 +1,6 @@
+
+
+https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#:~:text=Beeline%20%E2%80%93%20Command%20Line%20Shell,-HiveServer2%20supports%20a&text=The%20Beeline%20shell%20works%20in,separate%20HiveServer2%20process%20over%20Thrift.
+
+beeline -u jdbc:hive2:// 192.168.0.51:10000/training_db -n impadmin -p impetus --silent=true --outputformat=csv2 -e "select * from stud"
+

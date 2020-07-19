@@ -1,0 +1,5 @@
+create table titanic_new(Survived int,Pclass int, Name string,Sex string,	Age int,	Siblings_Aboard int ,ParentsChildren_Aboard int,	Fare float)
+ row format delimited 
+ fields terminated by ','
+ 
+ 
