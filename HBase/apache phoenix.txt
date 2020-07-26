@@ -1,0 +1,4 @@
+
+---starting apache phoenix
+python2 /usr/lib/phoenix/bin/sqlline.py
+0: jdbc:phoenix:> select * from  SYSTEM.CATALOG limit 1;

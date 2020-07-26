@@ -1,0 +1,101 @@
+hbase(main):001:0> list
+TABLE
+EMP
+EMP1
+SYSTEM.CATALOG
+SYSTEM.FUNCTION
+SYSTEM.LOG
+SYSTEM.MUTEX
+SYSTEM.SEQUENCE
+SYSTEM.STATS
+8 row(s) in 0.1540 seconds
+
+=> ["EMP", "EMP1", "SYSTEM.CATALOG", "SYSTEM.FUNCTION", "SYSTEM.LOG", "SYSTEM.MUTEX", "SYSTEM.SEQUENCE",                                 "SYSTEM.STATS"]
+
+
+hbase(main):006:0> list
+TABLE
+EMP
+EMP1
+SYSTEM.CATALOG
+SYSTEM.FUNCTION
+SYSTEM.LOG
+SYSTEM.MUTEX
+SYSTEM.SEQUENCE
+SYSTEM.STATS
+prod
+9 row(s) in 0.0090 seconds
+
+=> ["EMP", "EMP1", "SYSTEM.CATALOG", "SYSTEM.FUNCTION", "SYSTEM.LOG", "SYSTEM.MUTEX", "SYSTEM.SEQUENCE",                                 "SYSTEM.STATS", "prod"]
+
+hbase(main):009:0> create  'emp' ,'academics' ,'salary'
+0 row(s) in 1.2250 seconds
+
+=> Hbase::Table - emp
+hbase(main):010:0> describe 'emp'
+Table emp is ENABLED
+emp
+
+COLUMN FAMILIES DESCRIPTION
+
+{NAME => 'academics', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS =>
+'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOREVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLO
+CKCACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}
+
+{NAME => 'salary', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'false', KEEP_DELETED_CELLS => 'FA
+LSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOREVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKC
+ACHE => 'true', BLOCKSIZE => '65536', REPLICATION_SCOPE => '0'}
+2 row(s) in 0.0200 seconds
+
+
+hbase(main):011:0> scan 'emp'
+ROW                         COLUMN+CELL
+0 row(s) in 0.0240 seconds
+
+hbase(main):012:0> put 'emp' , '1','academics:school_name','DPS'
+0 row(s) in 0.0610 seconds
+
+hbase(main):013:0> scan 'emp'
+ROW                         COLUMN+CELL
+ 1                          column=academics:school_name, timestamp=1595751206171, value=DPS
+1 row(s) in 0.0090 seconds
+
+
+hbase(main):014:0> put 'emp' , '1','academics:school_name','AFS'
+0 row(s) in 0.0040 seconds
+
+hbase(main):015:0> scan 'emp'
+ROW                         COLUMN+CELL
+ 1                          column=academics:school_name, timestamp=1595751315276, value=AFS
+1 row(s) in 0.0040 seconds
+
+hbase(main):016:0> put 'emp' , '2','academics:school_name','DAV'
+0 row(s) in 0.0050 seconds
+
+hbase(main):017:0> put 'emp' , '2','academics:first_company','Deloitte'
+0 row(s) in 0.0040 seconds
+
+hbase(main):018:0> put 'emp' , '2','academics:first_salary','10L'
+0 row(s) in 0.0080 seconds
+
+hbase(main):019:0> scan 'emp'
+ROW                                 COLUMN+CELL
+ 1                                  column=academics:school_name, timestamp=1595751315276, value=AFS
+ 2                                  column=academics:first_company, timestamp=1595751536600, value=Deloitte
+ 2                                  column=academics:first_salary, timestamp=1595751551077, value=10L
+ 2                                  column=academics:school_name, timestamp=1595751512196, value=DAV
+2 row(s) in 0.0110 seconds
+
+hbase(main):020:0> get 'emp','1'
+COLUMN                              CELL
+ academics:school_name              timestamp=1595751315276, value=AFS
+1 row(s) in 0.0150 seconds
+
+hbase(main):021:0> get 'emp','2'
+COLUMN                              CELL
+ academics:first_company            timestamp=1595751536600, value=Deloitte
+ academics:first_salary             timestamp=1595751551077, value=10L
+ academics:school_name              timestamp=1595751512196, value=DAV
+1 row(s) in 0.0090 seconds
+
+hbase(main):022:0>

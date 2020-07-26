@@ -1,0 +1,50 @@
+SQL
+
+select avg().* from emp 
+where name="rahul" 
+group by id 
+order by sal;
+
+=======================
+PL-SQL
+
+nm=
+
+
+select avg().* from emp 
+where name=$nm 
+group by id 
+order by sal;
+
+
+----------
+
+machine model
+
+200  -->  model.predict() --->
+
+
+features file--> hive table
+
+file
+
+app_id score
+1 .9
+2 .5
+
+3 .4
+4 .2
+
+
+
+
+
+
+
+
+
+
+
+
+
+

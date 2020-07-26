@@ -1,0 +1,12 @@
+
+Hive SQL  ---- 4 steps ---> MR
+
+4 steps:
+parser::
+planner -- explain plan--logical plan --physical plan
+optimizer --- plan optimize--   time   reduce---
+executor
+
+
+
+

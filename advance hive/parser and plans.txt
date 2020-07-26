@@ -1,0 +1,16 @@
+ML
+
+OPT--
+
+LR -- COST FUNCTION -- SSE --minimize
+
+GRADIENT DESCENT -- SLOPE
+
+==========
+
+
+optimizer --- plan optimize--   time   reduce---
+ model.fit() --- coeff  y=b1x1+b2x2
+
+
+executor  -- model.predict()-- y=b1x1+b2x2
