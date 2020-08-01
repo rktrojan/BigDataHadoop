@@ -1,0 +1,27 @@
+MongoDB syntax
+
+COLLECTION ==TABLE
+
+db.users.insert(
+{
+_id : ObjectId("507f191e810c19729de860ea"),
+title: "MongoDB Overview",
+description: "MongoDB is no sql database",
+
+}
+)
+=======================
+collection
+document= row === stored JSON
+
+JSON data
+{"column1":1,"column2":22,"column3":4400}
+=======================
+
+SQL
+
+insert into users 
+values (ObjectId("507f191e810c19729de860ea"),
+"MongoDB Overview",
+"MongoDB is no sql database"
+)
