@@ -1,0 +1,11 @@
+SPARK 1.0
+
+RDD=sc.textFile()
+DF=sqlContext.read.csv("")
+
+==================================
+
+SPARK 2.0
+
+DF=sparksession.read.csv()
+DF=sqlContext.read.csv()
