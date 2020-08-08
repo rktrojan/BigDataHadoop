@@ -1,0 +1,15 @@
+
+access the below shell script
+/usr/lib/flink/bin/pyflink-shell.sh
+
+if you get python version error, then open the shell script and update the parameter PYFLINK_PATH=/usr/bin/python3.7
+
+
+again run /usr/lib/flink/bin/pyflink-shell.sh
+and its resolved.
+
+
+------------------------------------------------------------
+[hadoop@ip-172-31-74-0 bin]$ export PYFLINK_CLIENT_EXECUTABLE=/usr/bin/python3.7
+
+[hadoop@ip-172-31-74-0 bin]$ export PYFLINK_CLIENT_EXECUTABLE=/usr/bin/python3.7
