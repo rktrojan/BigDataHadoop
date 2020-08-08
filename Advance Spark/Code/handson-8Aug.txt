@@ -1,0 +1,109 @@
+
+
+https://github.com/rktrojan/DataSciencePython/tree/master/DataFiles
+
+
+
+analyze table emp compute stats
+
+
+create table emptable(EMpID string,Name string)
+desc formatted emptable
+
+analyze table emptable compute statistics
+
+show tables 
+
+select * from emptable
+
+select count(*) from emptable
+set hive.exe
+set hive.execution.engine=mr;
+set hive.execution.engine;
+analyze table emptable compute statistics
+
+
+
+
+insert into emptable values (1,""Mukesh)
+
+
+
+select lnamae, count(*) from (select lower(name) as lname, empID from emptable) temp group by lname;
+
+
+
+
+
+select lower(name), count(*) from emptable group by (lower(name));
+
+
+
+
+
+
+
+https://github.com/rktrojan/DataSciencePython
+
+
+
+https://github.com/rktrojan/BigDataHadoop/blob/master/Advance%20Spark/Code/Code%201%20-%20Spark%20Core
+
+
+
+
+20/08/08 07:33:23 WARN YarnScheduler: Initial job has not accepted any resources
+; check your cluster UI to ensure that workers are registered and have sufficien
+t resources
+
+
+/user/hadoop/Reviews.csv
+
+
+>>> df=spark.read.options(header="true").csv("/user/hadoop/reviews_n.csv")
+
+
+
+
+
+
+>>> df=spark.read.options(header="true").csv("/user/hadoop/reviews_n.csv")
+>>> df.show()
+>>> df.registerTempTable("reviews")
+
+>>> spark.sql(select * from reviews)
+>>> spark.sql("select * from reviews").show()
+
+
+
+
+>>> spark.sql("select * from reviews where trim(star_rating)=5").show()
+
+
+
+
+spark.sql("select * from reviews where trim(marketplace)<>'US'").show()
+
+---------------------------------------
+
+========ASSIGNMENTS================
+
+
+group by star rating
+
+per rating -- how many customers
+
+
+
+
+spark.sql("select trim(customer_id),count(*) from reviews group by trim(customer_id)" ).show()
+
+
+spark.sql("select trim(star_rating),count(*) from reviews group by trim(star_rating)" ).show()
+
+
+=====================
+how many ratings received in the month of may
+
+spark.sql("select month(trim(year)),count(*) from reviews where month(trim(year))=5" ).show()
+

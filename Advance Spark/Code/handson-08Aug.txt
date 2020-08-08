@@ -1,0 +1,10 @@
+select lname, count(*) from (select lower(name) as lname, empID from emptable) temp group by lname;
+
+
+>>> df=spark.read.options(header="true").csv("/user/hadoop/reviews_n.csv")
+>>> df.show()
+>>> df.registerTempTable("reviews")
+
+>>> spark.sql(select * from reviews)
+>>> spark.sql("select * from reviews").show()
+
