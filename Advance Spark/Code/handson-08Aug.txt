@@ -1,10 +1,27 @@
-select lname, count(*) from (select lower(name) as lname, empID from emptable) temp group by lname;
+#run on linux::
+wget https://raw.githubusercontent.com/rktrojan/BigDataHadoop/master/Advance%20Spark/Datasets/Reviews.csv
+
+#move to hdfs 
+hdfs dfs -put Reviews.csv 
 
 
->>> df=spark.read.options(header="true").csv("/user/hadoop/reviews_n.csv")
+==================================
+
+====================================
+
+#to open pyspark type: pyspark
+#now you are inside pyspark
+
+
+>>> df=spark.read.options(header="true").csv("/user/hadoop/Reviews.csv")
 >>> df.show()
 >>> df.registerTempTable("reviews")
 
 >>> spark.sql(select * from reviews)
 >>> spark.sql("select * from reviews").show()
+
+
+#EXTRA SQL Practice
+#select lname, count(*) from (select lower(name) as lname, empID from emptable) temp group by lname;
+
 
