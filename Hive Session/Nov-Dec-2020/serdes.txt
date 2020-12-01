@@ -1,0 +1,40 @@
+
+==============================
+SERDEs
+
+TEXT BASED SERDEs
+
+TEXTFILE --- cntrl-A
+TSV      
+CSV
+JSON
+XML
+
+
+
+----------------
+
+
+BINARY SERDEs -- highest compression
+
+
+SEQUENTIAL FILE
+
+AVRO
+
+
+
+
+
+----------------
+
+COLUMNAR SERDEs
+
+RC ---
+ORC ---- HIVE - https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC
+PARQUET  -- spark  - https://parquet.apache.org/documentation/latest/
+
+--------------------------
+
+
+

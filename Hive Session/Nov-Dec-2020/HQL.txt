@@ -1,0 +1,22 @@
+Access this
+
+https://demo.gethue.com/hue/editor?editor=61070
+
+
+practice this
+
+--insert into emp values (22, "ajay",8800000,"ACCCOUNTS");
+
+
+--select * from  pga07.emp ;--where lower(dept)="accounts";
+
+
+select id, count(*) from  pga07.emp group by id;
+
+
+
+--------------------
+ctrl-A character
+1,2,3					1\0012\0013\001
+22 33 4					22\00133\0014\001
+

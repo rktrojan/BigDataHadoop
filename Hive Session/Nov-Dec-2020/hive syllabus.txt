@@ -1,0 +1,18 @@
+
+hive architecture
+
+Hive --  Hive QL -- HQL
+DDL
+DML
+
+SELECT QUERIES-- group by ---
+
+
+internal vs external
+
+serdes
+
+partioning and bucketing
+
+
+
