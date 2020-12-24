@@ -1,0 +1,29 @@
+
+vi workflow.xml
+cat workflow.xml 
+vi workflow.xml 
+
+oozie version
+
+oozie validate workflow.xml 
+
+#oozie job -run workflow.xml 
+#oozie job -oozie hdfs://quickstart.cloudera:11000/oozie  -run workflow.xml
+#oozie job -oozie http://quickstart.cloudera:11000/oozie  -run workflow.xml
+
+vi job.properties
+nano job.properties 
+
+oozie job -oozie http://quickstart.cloudera:11000/oozie -config job.properties -run
+
+hdfs dfs -put workflow.xml 
+
+oozie job -oozie http://quickstart.cloudera:11000/oozie -config job.properties -run
+
+oozie job -oozie http://quickstart.cloudera:11000/oozie -config job.properties -info 0000001-201224002020247-oozie-oozi-W
+
+vi job.properties 
+
+oozie job -oozie http://quickstart.cloudera:11000/oozie -config job.properties -run
+
+oozie job -oozie http://quickstart.cloudera:11000/oozie -config job.properties -info 0000002-201224002020247-oozie-oozi-W
