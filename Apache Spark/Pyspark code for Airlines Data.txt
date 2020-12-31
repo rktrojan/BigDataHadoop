@@ -1,0 +1,75 @@
+
+#PySpark Hands-on -- Spark 1.0
+
+
+#RDD creation
+
+abc=sc.textFile("airlindata.csv")
+
+abc=sc.textFile("airlinedata.csv")
+
+
+#RDD to Dataframe conversion
+
+xyz=abc.toDF()
+
+abc.collect()
+
+
+#Dataframe creation
+
+pqr=sqlContext.read.text("airlindata.csv")
+
+#parts=pqr.map(lambda l:l.split(","))
+
+
+
+split_col=pyspark.sql.functions.split(pqr['value'],',')
+
+#split_col.getItem(*).show()
+
+
+pqr=pqr.withColumn('year',split_col.getItem(0))
+pqr=pqr.withColumn('Quarter',split_col.getItem(1))
+pqr=pqr.withColumn('average',split_col.getItem(2))
+pqr=pqr.withColumn('noofseats',split_col.getItem(3))
+
+pqr.show()
+
+
+
+#DSL
+
+pqr.select('Name1').show()
+pqr.select(['Name1','noofseats']).show()
+
+
+
+
+df1=pqr.select(['Name1','noofseats'])
+df1.show()
+
+#######
+
+pqr
+
+pqr.select('*').show()
+
+pqr.select('*').sort('average').show()
+
+
+
+
+#Spark SQL
+
+pqr.registerTempTable('airlindata')
+
+sqlContext.sql('select * from airlindata')
+
+sqlContext.sql('select sum(average) from airlindata').show()
+
+sqlContext.sql('select max(average) from airlindata').show()
+
+
+
+
