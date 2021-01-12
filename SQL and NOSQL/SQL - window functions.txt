@@ -1,0 +1,62 @@
+Advance SQL
+
+--analytical queries and windowing
+
+select count(*) as cnt,country from customers group by country
+     order by cnt desc limit 1
+	 
+	 
+	 
+SELECT stu_name,city, rank() over (partition by city order by marks asc) as rnk FROM pract1
+
+CREATE TABLE pract25(
+  `serial` int, 
+  `stu_name` string, 
+  `marks` int, 
+  `city` string);
+  
+  insert into pract1 values (1,"raj",99,"delhi"),(2,"akash",97,"delhi"),
+(3,"ajay",87,"mumbai"),(4,"abhinav",77,"mumbai")
+
+
+select * from
+(SELECT stu_name, rank() over (partition by city order by marks desc) as rnk FROM pract1) tbl
+where rnk=1
+
+===========
+
+CREATE TABLE emp (
+  empno    int ,
+  ename    string,
+  job      string,
+  mgr      int,
+  hiredate DATE,
+  sal      int,
+  comm     int,
+  deptno   int
+);
+
+INSERT INTO emp VALUES (7369,'SMITH','CLERK',7902,'17-12-1980',800,NULL,20);
+INSERT INTO emp VALUES (7499,'ALLEN','SALESMAN',7698,'20-2-1981',1600,300,30);
+INSERT INTO emp VALUES (7521,'WARD','SALESMAN',7698,'22-2-1981',1250,500,30);
+INSERT INTO emp VALUES (7566,'JONES','MANAGER',7839,'2-4-1981',2975,NULL,20);
+INSERT INTO emp VALUES (7654,'MARTIN','SALESMAN',7698,'28-9-1981',1250,1400,30);
+INSERT INTO emp VALUES (7698,'BLAKE','MANAGER',7839,'1-5-1981',2850,NULL,30);
+INSERT INTO emp VALUES (7782,'CLARK','MANAGER',7839,'9-6-1981',2450,NULL,10);
+INSERT INTO emp VALUES (7788,'SCOTT','ANALYST',7566,'13-JUL-87',3000,NULL,20);
+INSERT INTO emp VALUES (7839,'KING','PRESIDENT',NULL,'17-11-1981',5000,NULL,10);
+INSERT INTO emp VALUES (7844,'TURNER','SALESMAN',7698,'8-9-1981',1500,0,30);
+INSERT INTO emp VALUES (7876,'ADAMS','CLERK',7788,'13-JUL-87',1100,NULL,20);
+INSERT INTO emp VALUES (7900,'JAMES','CLERK',7698,'3-12-1981',950,NULL,30);
+INSERT INTO emp VALUES (7902,'FORD','ANALYST',7566,'3-12-1981',3000,NULL,20);
+INSERT INTO emp VALUES (7934,'MILLER','CLERK',7782,'23-1-1982',1300,NULL,10);
+-------------------
+
+windowing
+
+SELECT ename, deptno, sal,
+sum(sal) over (partition by deptno order by sal desc ) as sm ,
+sum(sal) over (partition by deptno order by sal desc ROWS  unbounded preceding) as ss,
+
+dense_rank() over (partition by deptno order by sal desc) 
+as rnk FROM emp where deptno is not null
