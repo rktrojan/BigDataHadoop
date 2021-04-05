@@ -1,0 +1,28 @@
+CREATE TABLE `titanic_p`(
+  `passengerid` string,
+  `survived` string,
+  `pclass` string,
+  `name` string,
+  `age` string,
+  `sibsp` string,
+  `parch` string,
+  `ticket` string,
+  `fare` string,
+  `cabin` string,
+  `embarked` string)
+PARTITIONED BY (
+  `sex` string)
+ROW FORMAT SERDE
+  'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES (
+  'field.delim'=',',
+  'serialization.format'=',')
+STORED AS 
+INPUTFORMAT
+  'org.apache.hadoop.mapred.TextInputFormat'
+OUTPUTFORMAT
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  'hdfs://ip-172-31-22-38.ec2.internal:8020/user/hive/warehouse/titanic_p'
+TBLPROPERTIES (
+  'transient_lastDdlTime'='1617605337')
