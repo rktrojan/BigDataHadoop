@@ -1,2 +1,4 @@
 https://sqoop.apache.org/docs/1.4.0-incubating/SqoopUserGuide.html#id1772462
 
+https://sqoop.apache.org/docs/1.4.7/SqoopUserGuide.html
+

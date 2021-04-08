@@ -1,0 +1,28 @@
+
+
+
+
+
+sqoop eval \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--query "show tables"
+
+sqoop eval \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username hive \
+--password cloudera \
+--query "show tables"
+
+
+
+sqoop eval \
+--connect jdbc:mysql://localhost:3306/metastore \
+--username hive \
+--password cloudera \
+--query "show tables"
+
+
+
+

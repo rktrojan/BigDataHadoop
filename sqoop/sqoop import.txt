@@ -1,0 +1,26 @@
+
+
+
+
+
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--query 'select count(*) from orders where $CONDITIONS'
+--target-dir /user/cloudera/orders \
+-m 10
+--split-by oid
+
+
+
+--table products  \
+--columns id,name 
+--where "sal>10"
+
+--fields-terminated-by "," 
+
+
+--hive-import 
+--create-hive-table 
+--hive-table sqoop_workspace.customers

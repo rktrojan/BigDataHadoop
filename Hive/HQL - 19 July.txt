@@ -1,0 +1,46 @@
+ create table orders (oid int, pid int, custid int);
+ create external table products ( pid int, pname string, price int);
+
+ drop table  products;
+
+ drop table  orders;
+
+#create table SQL
+create table titanic_new(Survived int,Pclass int, Name string,Sex string,Age int,Siblings_Aboard int ,ParentsChildren_Aboard int,Fare float) row format delimited fields terminated by ','
+
+
+ select * from titanic_new;
+
+ !hdfs dfs -put titanic_noheader.csv /user/hive/warehouse/hadoop.db/titanic_new
+
+ set hive.execution.engine;
+#check the value--tez or mr
+
+ set hive.execution.engine=mr;
+ set hive.execution.engine=tez;
+ set hive.execution.engine=mr;
+
+#collect stats
+ analyze table titanic_new  compute statistics;
+
+ select count(*)  from titanic ;
+
+ desc formatted titanic;
+
+ select  *  from titanic_new limit 10;
+
+ select count(*) from titanic_new where sex="male"
+
+ select sex,count(*) from titanic_new group by sex;
+
+ select pclass,sum(fare),count(age) from titanic_new group by pclass;
+
+ select sum(fare),count(age) from titanic_new;
+
+ select sex,count(*) from titanic_new where age>30 and survived=1 group by sex;
+
+ select name from titanic_new where siblings_aboard+parentschildren_aboard>=5;
+
+select name,siblings_aboard+parentschildren_aboard from titanic_new where siblings_aboard+parentschildren_aboard>=5;
+
+ select * from (select name,siblings_aboard+parentschildren_aboard as dep from titanic_new where siblings_aboard+parentschildren_aboard>=5) temp order by temp.dep ;

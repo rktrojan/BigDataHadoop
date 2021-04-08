@@ -1,0 +1,27 @@
+
+
+
+
+
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--table orders 
+
+--hive-import 
+--create-hive-table 
+--hive-table default.ord
+
+
+
+-m 10
+--split-by oid
+
+
+--table products  \
+--columns id,name 
+--where "sal>10"
+
+--fields-terminated-by "," 
+
