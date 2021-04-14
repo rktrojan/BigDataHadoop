@@ -1,0 +1,4 @@
+Java:
+write Java program to reverse a string with using any pre-defined functions
+
+write Java program to count vowels and consonants in a String

@@ -1,0 +1,3 @@
+Linux:
+
+check all files whose name starts with hadoop, then concatenate the content of those files to 1 signle file
