@@ -1,0 +1,41 @@
+
+
+Read - http://pig.apache.org/docs/r0.17.0/basic.html#relations
+
+PIG -- LAZY EVALUATION -- DAG
+
+==========================
+
+df = load 'emp' using PigStorage(',') as (id:int,age:int,sal:int)
+
+df2 = foreach df generate id,age;
+
+df3 = filter df2 by age>3;
+
+dump df3;
+===================
+
+dump df;
+
+x = foreach df generate id,age;
+dump x;
+
+===================
+
+df1
+
+df2
+
+df4 = union df1,df2
+
+
+==========
+
+bag33 = group bag2 by id;
+
+
+
+
+
+
+

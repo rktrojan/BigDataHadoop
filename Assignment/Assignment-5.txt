@@ -1,0 +1,24 @@
+PigLatin/Pig Scripts:
+
+1. download titanic data from below link [TRAIN data]:
+https://raw.githubusercontent.com/agconti/kaggle-titanic/master/data/train.csv
+
+
+2. download titanic data from below link [TEST data]:
+https://raw.githubusercontent.com/agconti/kaggle-titanic/master/data/test.csv
+
+3. load these 2 files as Pig alias/bag -- make sure to define delimiter and schema
+
+4. remove first row from both the files
+
+5. union these 2 bags into final bag
+
+6. Run below analytical quries in pig:
+
+	-	Average age of people who SURVIVED
+	-   Max Fare paid by people of pclass=3
+	-	Name ond PassengerID of person paying Max Fare for pclass=1
+	-	How many males and females are travelling here
+	-	Those who are above age of 40, what percentage of people survived 
+
+
