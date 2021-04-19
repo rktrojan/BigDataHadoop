@@ -1,0 +1,29 @@
+<workflow-app>
+
+
+
+<start> -- control node
+
+<action>
+<MR>--action nodes
+<jarfile = wordcount.jar classfile=demo.java>
+</MR>
+</action>
+
+<action>
+<hive>
+<scriptfile = abc.hql>
+</hive>
+</action>
+
+<action>
+<pig> -- action node
+<scriptfile= prog.pig>
+</pig>
+</action>
+
+<end> --control node
+
+
+</workflow-app>
+
