@@ -1,2 +1,54 @@
-<workflow-app>
+<!-- comment -->
+
+<workflow-app xmlns = "uri:oozie:workflow:0.5" name = "oozie_demo">
+  
+  <start to = "stepA" />
+
+  <!--Step A -->
+   
+   
+   <action name = "stepA">
+      <hive xmlns = "uri:oozie:hive-action:0.4">
+         <job-tracker>xyz.com:8088</job-tracker>
+         <name-node>hdfs://rootname:8032</name-node>
+         <script>hdfs_path_of_script/external.hive</script>
+      </hive>
+		
+      <ok to = "stepB" />
+      <error to = "kill_job" />
+   </action>
+
+   <!--Step B -->
+   
+   <action name = "stepB">
+      <hive xmlns = "uri:oozie:hive-action:0.4">
+         <job-tracker>xyz.com:8088</job-tracker>
+         <name-node>hdfs://rootname:8032</name-node>
+         <script>hdfs_path_of_script/orc.hive</script>
+      </hive>
+		
+      <ok to = "stepC" />
+      <error to = "kill_job" />
+   </action>
+
+   <!--Step 3 -->
+      
+   <action name = "stepC">
+      <hive xmlns = "uri:oozie:hive-action:0.4">
+         <job-tracker>xyz.com:8088</job-tracker>
+         <name-node>hdfs://rootname:8032</name-node>
+         <script>hdfs_path_of_script/Copydata.hive</script>
+         <param>database_name</param>
+      </hive>
+		
+      <ok to = "end" />
+      <error to = "kill_job" />
+   </action>
+   
+   <kill name = "kill_job">
+      <message>Job failed</message>
+   </kill>
+	
+   <end name = "end" />
+
 </workflow-app>

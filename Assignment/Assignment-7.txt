@@ -1,0 +1,7 @@
+HBase Shell commands:
+
+1. create a table with 2 column families
+2. try to alter the TTL for anyone column family
+3. insert the data to that table and see if the data is removed after TTL is expired
+4. Read about BLOOMFILTERs and Versions in Column Family
+

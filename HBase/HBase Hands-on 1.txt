@@ -1,0 +1,56 @@
+hbase(main):051:0> show_filters
+
+DependentColumnFilter
+KeyOnlyFilter
+ColumnCountGetFilter
+SingleColumnValueFilter
+PrefixFilter
+SingleColumnValueExcludeFilter
+FirstKeyOnlyFilter
+ColumnRangeFilter
+TimestampsFilter
+FamilyFilter
+QualifierFilter
+ColumnPrefixFilter
+RowFilter
+MultipleColumnPrefixFilter
+InclusiveStopFilter
+PageFilter
+
+ValueFilter
+ColumnPaginationFilter
+
+
+SingleColumnValueFilter
+
+------------
+list
+
+create 'emp', 'personal','education', 'professional'
+
+list
+
+put 'emp',1,'education:college','IIT'
+
+put 'emp',1,'education:marks','80'
+
+put 'emp',2,'education:college','NIT'
+
+put 'emp','akash','education:college','VIT'
+
+scan 'emp'
+
+--projection example
+scan 'emp', {COLUMNS=>'education'}
+
+--filters example
+scan 'emp', {COLUMNS=>'education', FILTER => "SingleColumnValueFilter('education','college',=, 'binary:IIT')
+"}
+
+ scan 'emp', {COLUMNS=>'education:marks', FILTER => "SingleColumnValueFilter('education','college',=, 'binary:IIT')"}
+
+
+
+
+
+

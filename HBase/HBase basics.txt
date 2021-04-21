@@ -1,0 +1,16 @@
+NoSQL == Not only SQL
+
+
+
+SQL DBs/RDBMS          
+mysql
+oracle
+
+	VS.
+	
+HIVE/IMPALA 
+
+	VS.
+	
+NoSQL DBs
+HBASE, MongoDB,CASSANDRA, ......
