@@ -1,0 +1,28 @@
+
+JAVA -- object oriented programming language
+
+SCALA -- FUNCTIONAL PROGRAMMING LANGAUGE
+
+PYTHON also supports OOPS/functional prgramming
+
+
+
+
+RDD  --- resilient distributed dataset
+types of RDD::
+hadoopRDD
+parallelRDD
+MapRDD
+
+RDD is IMMUTABLE
+
+================
+
+//pseudo-code - RDD
+f1 = sc.textFile('emp.csv').map(lambda x:(x,1)).collect()
+
+//pseudo-code - DataFrame/Datasets
+b = sc.sqlcontext.read_csv('emp.csv')
+
+
+c= sc.toDF(a)

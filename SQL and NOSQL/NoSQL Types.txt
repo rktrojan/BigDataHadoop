@@ -1,0 +1,46 @@
+
+
+TABLE --- complaint-- 
+id, name, date,desc ....., dept, ....., attachements ? time-resolve
+
+
+key-value --- redis/riak--- cache-- in-memory -- temporary data
+1 billion --hbase -- 
+100,000 --- redis
+
+key,value
+int,array(string)
+id,items
+1,[iphone,oppo abc,dd,dd8]
+
+
+
+
+==============================
+
+column-family ---hbase/cassandra-CQL/aws-dynamoDB 
+-- API--sparse data
+1,name,age,address,salary,
+
+
+==============================
+document-DB --mongoDB/couhbase-N1QL ---table == collection-- JSON--- API 
+{id:333, name:'rahul', date:'4-4-2022',desc ....., dept, ....., attachements ? time-resolve}-- JSON document
+.
+.
+.
+.
+
+==============================
+graph DB
+Neo4J
+Titan
+
+
+==============================
+
+TimeSeries Databases
+
+
+
+
