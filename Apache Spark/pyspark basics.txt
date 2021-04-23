@@ -26,3 +26,31 @@ b = sc.sqlcontext.read_csv('emp.csv')
 
 
 c= sc.toDF(a)
+
+--------------------------------------
+
+
+spark RDD
+
+collection --- sc.parallize(data)
+
+file ----   sc.textFile('emp.csv')
+
+
+===================
+spark DF
+
+collection --- sqlContext.createDataFrame()
+
+file --- 	sqlContext.read.csv()
+			sqlContext.read.text()
+			
+			
+			DSL and SQL
+	
+
+
+
+
+
+			

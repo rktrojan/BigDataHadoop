@@ -1,0 +1,62 @@
+study link - https://spark.apache.org/docs/2.1.1/sql-programming-guide.html
+
+
+
+>>>from pyspark.sql import SparkSession
+>>>spark = SparkSession.builder.master("local").appName("Word Count")\
+    .config("spark.some.config.option", "some-value")\
+    .getOrCreate()
+	
+	
+
+df = spark.read.option("header", "true")\
+    .option("delimiter", ",")\
+    .option("inferSchema", "true")\
+    .text("emp.csv")
+	
+df = spark.read.option("header", "true").option("inferSchema", "true").csv("emp")
+
+
+//-- .option("delimiter", ",")
+	
+	
+	
+	
+abc = sc.parallelize(data)
+
+	
+	
+data = [('James','','Smith','1991-04-01','M',3000),
+  ('Michael','Rose','','2000-05-19','M',4000),
+  ('Robert','','Williams','1978-09-05','M',4000),
+  ('Maria','Anne','Jones','1967-12-01','F',4000),
+  ('Jen','Mary','Brown','1980-02-17','F',-1)
+]
+
+columns = ["firstname","middlename","lastname","dob","gender","salary"]
+
+
+df = sqlContext.createDataFrame(data=data, schema = columns)
+
+
+
+
+>>>df.take(3)
+
+
+
+df = spark.read.option("header", "true") \
+    .option("delimiter", ",") \
+    .option("inferSchema", "true") \
+    .csv("emp.txt")
+
+df.show(2, truncate=False)
+
+df = spark.read\
+    .format("com.databricks.spark.csv")\
+    .option("header", "true") \
+    .option("delimiter", ",") \
+    .option("inferSchema", "true") \
+    .load("StockData/ETFs/aadr.us.txt")
+	
+	

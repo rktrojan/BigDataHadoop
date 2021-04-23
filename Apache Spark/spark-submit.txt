@@ -1,0 +1,65 @@
+10 TB RAM
+
+
+team A  quota
+
+1 TB RAM
+
+spark-submit -  1 TB  ---2 hours --- 50 GB
+
+--->> queue--->> spark-submit -10 GB  --->30 mins
+100-- GB
+
+=======================
+spark-submit -10 TB
+
+
+
+
+
+
+
+spark session
+
+
+spark application --- 1 ,   3,   5
+
+DAG
+
+steps -->
+
+step 0 ---> job 0
+
+
+read----->column---->rows---->transform
+
+
+
+
+12 GB
+
+10 GB executors
+
+driver memory  2 GB -- 5 GB
+
+
+[hadoop@ip-172-31-69-200 ~]$ 
+
+ spark-submit --executor-memory 1G  --driver-memory 5g
+ --num-executors 50 logR.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

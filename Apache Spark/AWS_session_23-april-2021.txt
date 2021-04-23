@@ -1,0 +1,1528 @@
+
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 2.4.7-amzn-1
+      /_/
+
+Using Python version 3.7.9 (default, Feb 18 2021 03:10:35)
+SparkSession available as 'spark'.
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>> sqlContext
+<pyspark.sql.context.SQLContext object at 0x7fc16f1b1350>
+>>> sqlContext.read.csv()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: csv() missing 1 required positional argument: 'path'
+>>> abc = sqlContext.read.csv('emp')
+>>> abc.collect()
+[Row(_c0='1', _c1='2', _c2='3'), Row(_c0='3', _c1='4', _c2='5')]
+>>> abc.show()
++---+---+---+
+|_c0|_c1|_c2|
++---+---+---+
+|  1|  2|  3|
+|  3|  4|  5|
++---+---+---+
+
+>>> a =sc.textFile('emp')
+>>> a.coolect()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'RDD' object has no attribute 'coolect'
+>>> a.collect()
+['1,2,3', '3,4,5']
+>>> abc = sqlContext.read('emp')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'DataFrameReader' object is not callable
+>>> abc = sqlContextload('emp')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sqlContextload' is not defined
+>>> abc = sqlContext.load('emp')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'SQLContext' object has no attribute 'load'
+>>> abc = sqlContext.read.text('emp')
+>>> abc.show()
++-----+
+|value|
++-----+
+|1,2,3|
+|3,4,5|
++-----+
+
+>>> abc = sqlContext.read.text('emp2')
+>>> abc.show()
++----------+
+|     value|
++----------+
+|  1    11      111|
+|2      222     2222|
++----------+
+
+>>> df = spark.read.option("header", "true")\
+...     .option("delimiter", ",")\
+...     .option("inferSchema", "true")\
+...     .text("emp")
+>>> df.show()
++-----+
+|value|
++-----+
+|1,2,3|
+|3,4,5|
++-----+
+
+>>> abc = sqlContext.read.text('emp')
+>>> df = spark.read.option("header", "true")\
+...     .option("delimiter", ",")\
+...     .option("inferSchema", "true")\
+...     .csv("emp")
+>>> df.show()
++---+---+---+
+|  1|  2|  3|
++---+---+---+
+|  3|  4|  5|
++---+---+---+
+
+>>> df = spark.read.csv("emp")
+>>> df.show()
++---+---+---+
+|_c0|_c1|_c2|
++---+---+---+
+| id|age|sal|
+|  1|  2|  3|
+|  3|  4|  5|
+|  6|  7|  8|
++---+---+---+
+
+>>> df = spark.read.option("header", "true").option("inferSchema", "true").csv("emp")
+>>> df.show()
++---+---+---+
+| id|age|sal|
++---+---+---+
+|  1|  2|  3|
+|  3|  4|  5|
+|  6|  7|  8|
++---+---+---+
+
+>>>
+>>> data = [('James','','Smith','1991-04-01','M',3000),
+...   ('Michael','Rose','','2000-05-19','M',4000),
+...   ('Robert','','Williams','1978-09-05','M',4000),
+...   ('Maria','Anne','Jones','1967-12-01','F',4000),
+...   ('Jen','Mary','Brown','1980-02-17','F',-1)
+... ]
+>>> data
+[('James', '', 'Smith', '1991-04-01', 'M', 3000), ('Michael', 'Rose', '', '2000-05-19', 'M', 4000), ('Robert', '', 'Williams', '1978-09-05', 'M', 4000), ('Maria', 'Anne', 'Jones', '1967-12-01', 'F', 4000), ('Jen', 'Mary', 'Brown', '1980-02-17', 'F', -1)]
+>>> columns = ["firstname","middlename","lastname","dob","gender","salary"]
+>>> df = spark.createDataFrame(data=data, schema = columns)
+>>> df.show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> df.createOrReplaceTempView("PERSON_DATA")
+>>> df2 = spark.sql("SELECT * from PERSON_DATA")
+21/04/23 05:44:51 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
+21/04/23 05:44:51 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
+21/04/23 05:44:51 WARN ObjectStore: Failed to get database global_temp, returning NoSuchObjectException
+>>> data = [('James','','Smith','1991-04-01','M',3000),
+...   ('Michael','Rose','','2000-05-19','M',4000),
+...   ('Robert','','Williams','1978-09-05','M',4000),
+...   ('Maria','Anne','Jones','1967-12-01','F',4000),
+...   ('Jen','Mary','Brown','1980-02-17','F',-1)
+... ]
+>>> data
+[('James', '', 'Smith', '1991-04-01', 'M', 3000), ('Michael', 'Rose', '', '2000-05-19', 'M', 4000), ('Robert', '', 'Williams', '1978-09-05', 'M', 4000), ('Maria', 'Anne', 'Jones', '1967-12-01', 'F', 4000), ('Jen', 'Mary', 'Brown', '1980-02-17', 'F', -1)]
+>>> df = sc.createDataFrame(data=data, schema = columns
+... )
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'SparkContext' object has no attribute 'createDataFrame'
+>>> df = sqlContext.createDataFrame(data=data, schema = columns)
+>>> df.show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> abc = sc.parallelize(data)
+>>> abc.collect()
+[('James', '', 'Smith', '1991-04-01', 'M', 3000), ('Michael', 'Rose', '', '2000-05-19', 'M', 4000), ('Robert', '', 'Williams', '1978-09-05', 'M', 4000), ('Maria', 'Anne', 'Jones', '1967-12-01', 'F', 4000), ('Jen', 'Mary', 'Brown', '1980-02-17', 'F', -1)]
+>>> abc
+ParallelCollectionRDD[91] at parallelize at PythonRDD.scala:195
+>>> type(data)
+<class 'list'>
+>>> type(abc)
+<class 'pyspark.rdd.RDD'>
+>>> l = [1,2,3,4,5,6,7,8]
+>>> type(l)
+<class 'list'>
+>>> c = sc.parallelize(l)
+>>> type(c)
+<class 'pyspark.rdd.RDD'>
+>>> df.show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> df.select()
+DataFrame[]
+>>> df.select().show()
+++
+||
+++
+||
+||
+||
+||
+||
+++
+
+>>> df.select(*).show()
+  File "<stdin>", line 1
+    df.select(*).show()
+               ^
+SyntaxError: invalid syntax
+>>> df.select('*').show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> df.select('lastname').show()
++--------+
+|lastname|
++--------+
+|   Smith|
+|        |
+|Williams|
+|   Jones|
+|   Brown|
++--------+
+
+>>> df.select(['lastname','dob']).show()
++--------+----------+
+|lastname|       dob|
++--------+----------+
+|   Smith|1991-04-01|
+|        |2000-05-19|
+|Williams|1978-09-05|
+|   Jones|1967-12-01|
+|   Brown|1980-02-17|
++--------+----------+
+
+>>> df.select('lastname','dob').show()
++--------+----------+
+|lastname|       dob|
++--------+----------+
+|   Smith|1991-04-01|
+|        |2000-05-19|
+|Williams|1978-09-05|
+|   Jones|1967-12-01|
+|   Brown|1980-02-17|
++--------+----------+
+
+>>> df.select('lastname','salary'+22).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> df.select('lastname',$'salary'+22).show()
+  File "<stdin>", line 1
+    df.select('lastname',$'salary'+22).show()
+                         ^
+SyntaxError: invalid syntax
+>>> df.select('lastname',$'salary' + 22).show()
+  File "<stdin>", line 1
+    df.select('lastname',$'salary' + 22).show()
+                         ^
+SyntaxError: invalid syntax
+>>> df.select('lastname', 'salary' + 22).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> df.printSchema()
+root
+ |-- firstname: string (nullable = true)
+ |-- middlename: string (nullable = true)
+ |-- lastname: string (nullable = true)
+ |-- dob: string (nullable = true)
+ |-- gender: string (nullable = true)
+ |-- salary: long (nullable = true)
+
+>>> df.select( 'salary' + 22).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> df.select( "salary" + 22).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> df.select( $"salary" + 22).show()
+  File "<stdin>", line 1
+    df.select( $"salary" + 22).show()
+               ^
+SyntaxError: invalid syntax
+>>> df.select( "salary" + 22)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>> df.select( "salary" + '22')
+Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/sql/utils.py", line 63, in deco
+    return f(*a, **kw)
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py", line 328, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling o143.select.
+: org.apache.spark.sql.AnalysisException: cannot resolve '`salary22`' given input columns: [middlename, firstname, gender, salary, lastname, dob];;
+'Project ['salary22]
++- LogicalRDD [firstname#179, middlename#180, lastname#181, dob#182, gender#183, salary#184L], false
+
+        at org.apache.spark.sql.catalyst.analysis.package$AnalysisErrorAt.failAnalysis(package.scala:42)
+        at org.apache.spark.sql.catalyst.analysis.CheckAnalysis$$anonfun$checkAnalysis$1$$anonfun$apply$3.applyOrElse(CheckAnalysis.scala:111)
+        at org.apache.spark.sql.catalyst.analysis.CheckAnalysis$$anonfun$checkAnalysis$1$$anonfun$apply$3.applyOrElse(CheckAnalysis.scala:108)
+        at org.apache.spark.sql.catalyst.trees.TreeNode$$anonfun$4.apply(TreeNode.scala:310)
+        at org.apache.spark.sql.catalyst.trees.TreeNode$$anonfun$4.apply(TreeNode.scala:310)
+        at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(TreeNode.scala:71)
+        at org.apache.spark.sql.catalyst.trees.TreeNode.transformUp(TreeNode.scala:309)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$transformExpressionsUp$1.apply(QueryPlan.scala:93)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$transformExpressionsUp$1.apply(QueryPlan.scala:93)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$1.apply(QueryPlan.scala:105)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$1.apply(QueryPlan.scala:105)
+        at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(TreeNode.scala:71)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan.transformExpression$1(QueryPlan.scala:104)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan.org$apache$spark$sql$catalyst$plans$QueryPlan$$recursiveTransform$1(QueryPlan.scala:116)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$org$apache$spark$sql$catalyst$plans$QueryPlan$$recursiveTransform$1$2.apply(QueryPlan.scala:121)
+        at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:234)
+        at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:234)
+        at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)
+        at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)
+        at scala.collection.TraversableLike$class.map(TraversableLike.scala:234)
+        at scala.collection.AbstractTraversable.map(Traversable.scala:104)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan.org$apache$spark$sql$catalyst$plans$QueryPlan$$recursiveTransform$1(QueryPlan.scala:121)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan$$anonfun$2.apply(QueryPlan.scala:126)
+        at org.apache.spark.sql.catalyst.trees.TreeNode.mapProductIterator(TreeNode.scala:213)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan.mapExpressions(QueryPlan.scala:126)
+        at org.apache.spark.sql.catalyst.plans.QueryPlan.transformExpressionsUp(QueryPlan.scala:93)
+        at org.apache.spark.sql.catalyst.analysis.CheckAnalysis$$anonfun$checkAnalysis$1.apply(CheckAnalysis.scala:108)
+        at org.apache.spark.sql.catalyst.analysis.CheckAnalysis$$anonfun$checkAnalysis$1.apply(CheckAnalysis.scala:86)
+        at org.apache.spark.sql.catalyst.trees.TreeNode.foreachUp(TreeNode.scala:153)
+        at org.apache.spark.sql.catalyst.analysis.CheckAnalysis$class.checkAnalysis(CheckAnalysis.scala:86)
+        at org.apache.spark.sql.catalyst.analysis.Analyzer.checkAnalysis(Analyzer.scala:112)
+        at org.apache.spark.sql.catalyst.analysis.Analyzer$$anonfun$executeAndCheck$1.apply(Analyzer.scala:128)
+        at org.apache.spark.sql.catalyst.analysis.Analyzer$$anonfun$executeAndCheck$1.apply(Analyzer.scala:125)
+        at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper$.markInAnalyzer(AnalysisHelper.scala:201)
+        at org.apache.spark.sql.catalyst.analysis.Analyzer.executeAndCheck(Analyzer.scala:125)
+        at org.apache.spark.sql.execution.QueryExecution.analyzed$lzycompute(QueryExecution.scala:76)
+        at org.apache.spark.sql.execution.QueryExecution.analyzed(QueryExecution.scala:74)
+        at org.apache.spark.sql.execution.QueryExecution.assertAnalyzed(QueryExecution.scala:66)
+        at org.apache.spark.sql.Dataset$.ofRows(Dataset.scala:80)
+        at org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$withPlan(Dataset.scala:3439)
+        at org.apache.spark.sql.Dataset.select(Dataset.scala:1343)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+        at py4j.Gateway.invoke(Gateway.java:282)
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)
+        at java.lang.Thread.run(Thread.java:748)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 1327, in select
+    jdf = self._jdf.select(self._jcols(*cols))
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1257, in __call__
+  File "/usr/lib/spark/python/pyspark/sql/utils.py", line 69, in deco
+    raise AnalysisException(s.split(': ', 1)[1], stackTrace)
+pyspark.sql.utils.AnalysisException: "cannot resolve '`salary22`' given input columns: [middlename, firstname, gender, salary, lastname, dob];;\n'Project ['salary22]\n+- LogicalRDD [firstname#179, middlename#180, lastname#181, dob#182, gender#183, salary#184L], false\n"
+>>> df.select( "sala" + 'ry')
+DataFrame[salary: bigint]
+>>> df.select( "sa" + 'lary')
+DataFrame[salary: bigint]
+>>> df.select( "sa" + 'lary').show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> df.select( "salary" + 22)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+>>>
+>>>
+>>>
+>>>
+>>> df.select( "salary")+22
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'DataFrame' and 'int'
+>>> df.select( "salary").show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> for i in df.select( "salary"):
+...     print(i)
+...
+Column<b'salary'>
+>>> for i in df.select( "salary").show():
+...     print(i)
+...
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'NoneType' object is not iterable
+>>> for i in df.select( "salary"):
+...     print(i.show())
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: 'Column' object is not callable
+>>> abc =df.select( "salary")
+>>> abc
+DataFrame[salary: bigint]
+>>> abc.show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> x = abc.show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> x
+>>> type(x)
+<class 'NoneType'>
+>>> abc
+DataFrame[salary: bigint]
+>>> for i in df.select( "salary"):
+...     print(i)
+...
+Column<b'salary'>
+>>> for i in df.select( "salary").show():
+...     print(i)
+...
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'NoneType' object is not iterable
+>>> for i in df.select( "salary").collect():
+...     print(i)
+...
+Row(salary=3000)
+Row(salary=4000)
+Row(salary=4000)
+Row(salary=4000)
+Row(salary=-1)
+>>> df.select( "salary").collect()
+[Row(salary=3000), Row(salary=4000), Row(salary=4000), Row(salary=4000), Row(salary=-1)]
+>>> df.select( "salary").show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> type(df.select( "salary").show())
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+<class 'NoneType'>
+>>> type(df.select( "salary").collect())
+<class 'list'>
+>>> for i in df.select( "salary").collect():
+...     print(i+44)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: can only concatenate tuple (not "int") to tuple
+>>> for i in df.select( "salary").collect():
+...     print(i.add(44))
+...
+Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/sql/types.py", line 1533, in __getattr__
+    idx = self.__fields__.index(item)
+ValueError: 'add' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/types.py", line 1538, in __getattr__
+    raise AttributeError(item)
+AttributeError: add
+>>> for i in df.select( "salary").collect():
+...     print(i.insert(44))
+...
+Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/sql/types.py", line 1533, in __getattr__
+    idx = self.__fields__.index(item)
+ValueError: 'insert' is not in list
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/types.py", line 1538, in __getattr__
+    raise AttributeError(item)
+AttributeError: insert
+>>> df.foreach()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: foreach() missing 1 required positional argument: 'f'
+>>> df.foreach(lambda x: x)
+>>> df.foreach(lambda x: x).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'show'
+>>> df.foreach(lambda x: print(x))
+>>> def func(x):
+...     print(x)
+...
+>>> func
+<function func at 0x7fc16f1ade60>
+>>> func(33)
+33
+>>> df.foreach(func)
+>>> df.foreach(func(66))
+66
+21/04/23 06:48:52 WARN TaskSetManager: Lost task 1.0 in stage 58.0 (TID 71, ip-172-31-88-6.ec2.internal, executor 22): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+
+[Stage 58:>                                                         (0 + 2) / 2]21/04/23 06:48:52 ERROR TaskSetManager: Task 1 in stage 58.0 failed 4 times; aborting job
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 587, in foreach
+    self.rdd.foreach(f)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 789, in foreach
+    self.mapPartitions(processPartition).count()  # Force evaluation
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 1055, in count
+[Stage 58:>                                                         (0 + 1) / 2]    return self.mapPartitions(lambda i: [sum(1 for _ in i)]).sum()
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 1046, in sum
+    return self.mapPartitions(lambda x: [sum(x)]).fold(0, operator.add)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 917, in fold
+    vals = self.mapPartitions(func).collect()
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 816, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1257, in __call__
+  File "/usr/lib/spark/python/pyspark/sql/utils.py", line 63, in deco
+    return f(*a, **kw)
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py", line 328, in get_return_value
+21/04/23 06:48:52 WARN TaskSetManager: Lost task 0.3 in stage 58.0 (TID 77, ip-172-31-88-6.ec2.internal, executor 22): TaskKilled (Stage cancelled)
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 58.0 failed 4 times, most recent failure: Lost task 1.3 in stage 58.0 (TID 76, ip-172-31-88-6.ec2.internal, executor 22): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:2136)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:2124)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:2123)
+        at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)
+        at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2123)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:994)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:994)
+        at scala.Option.foreach(Option.scala:257)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:994)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2384)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2333)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2322)
+        at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+        at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:805)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2097)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2118)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2162)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+        at org.apache.spark.rdd.RDD.withScope(RDD.scala:385)
+        at org.apache.spark.rdd.RDD.collect(RDD.scala:989)
+        at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:166)
+        at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+        at py4j.Gateway.invoke(Gateway.java:282)
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        ... 1 more
+
+>>> df.foreach(func())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: func() missing 1 required positional argument: 'x'
+>>> df.foreach(func(x))
+None
+[Stage 59:>                                                         (0 + 2) / 2]21/04/23 06:50:03 WARN TaskSetManager: Lost task 0.0 in stage 59.0 (TID 78, ip-172-31-88-6.ec2.internal, executor 23): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+
+21/04/23 06:50:03 ERROR TaskSetManager: Task 0 in stage 59.0 failed 4 times; aborting job
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 587, in foreach
+    self.rdd.foreach(f)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 789, in foreach
+    self.mapPartitions(processPartition).count()  # Force evaluation
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 1055, in count
+    return self.mapPartitions(lambda i: [sum(1 for _ in i)]).sum()
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 1046, in sum
+    return self.mapPartitions(lambda x: [sum(x)]).fold(0, operator.add)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 917, in fold
+    vals = self.mapPartitions(func).collect()
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 816, in collect
+    sock_info = self.ctx._jvm.PythonRDD.collectAndServe(self._jrdd.rdd())
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1257, in __call__
+  File "/usr/lib/spark/python/pyspark/sql/utils.py", line 63, in deco
+    return f(*a, **kw)
+  File "/usr/lib/spark/python/lib/py4j-0.10.7-src.zip/py4j/protocol.py", line 328, in get_return_value
+py4j.protocol.Py4JJavaError: An error occurred while calling z:org.apache.spark.api.python.PythonRDD.collectAndServe.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 59.0 failed 4 times, most recent failure: Lost task 0.3 in stage 59.0 (TID 85, ip-172-31-88-6.ec2.internal, executor 23): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+
+Driver stacktrace:
+        at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:2136)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:2124)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:2123)
+        at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)
+        at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)
+        at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2123)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:994)
+        at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:994)
+        at scala.Option.foreach(Option.scala:257)
+        at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:994)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2384)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2333)
+        at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2322)
+        at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+        at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:805)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2097)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2118)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext.runJob(SparkContext.scala:2162)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+        at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+        at org.apache.spark.rdd.RDD.withScope(RDD.scala:385)
+        at org.apache.spark.rdd.RDD.collect(RDD.scala:989)
+        at org.apache.spark.api.python.PythonRDD$.collectAndServe(PythonRDD.scala:166)
+        at org.apache.spark.api.python.PythonRDD.collectAndServe(PythonRDD.scala)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+        at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+        at py4j.Gateway.invoke(Gateway.java:282)
+        at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+        at py4j.commands.CallCommand.execute(CallCommand.java:79)
+        at py4j.GatewayConnection.run(GatewayConnection.java:238)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+  File "/usr/lib/spark/python/pyspark/worker.py", line 377, in main
+    process()
+  File "/usr/lib/spark/python/pyspark/worker.py", line 372, in process
+    serializer.dump_stream(func(split_index, iterator), outfile)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 2499, in pipeline_func
+    return func(split, prev_func(split, iterator))
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 352, in func
+    return f(iterator)
+  File "/usr/lib/spark/python/pyspark/rdd.py", line 787, in processPartition
+    f(x)
+  File "/usr/lib/spark/python/pyspark/util.py", line 113, in wrapper
+    return f(*args, **kwargs)
+TypeError: 'NoneType' object is not callable
+
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:456)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:592)
+        at org.apache.spark.api.python.PythonRunner$$anon$1.read(PythonRunner.scala:575)
+        at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:410)
+        at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at org.apache.spark.InterruptibleIterator.foreach(InterruptibleIterator.scala:28)
+        at scala.collection.generic.Growable$class.$plus$plus$eq(Growable.scala:59)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:104)
+        at scala.collection.mutable.ArrayBuffer.$plus$plus$eq(ArrayBuffer.scala:48)
+        at scala.collection.TraversableOnce$class.to(TraversableOnce.scala:310)
+        at org.apache.spark.InterruptibleIterator.to(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toBuffer(TraversableOnce.scala:302)
+        at org.apache.spark.InterruptibleIterator.toBuffer(InterruptibleIterator.scala:28)
+        at scala.collection.TraversableOnce$class.toArray(TraversableOnce.scala:289)
+        at org.apache.spark.InterruptibleIterator.toArray(InterruptibleIterator.scala:28)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.rdd.RDD$$anonfun$collect$1$$anonfun$15.apply(RDD.scala:990)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.SparkContext$$anonfun$runJob$5.apply(SparkContext.scala:2137)
+        at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:90)
+        at org.apache.spark.scheduler.Task.run(Task.scala:123)
+        at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:408)
+        at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1405)
+        at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:414)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        ... 1 more
+
+>>> df.foreach(func)
+>>> df.foreach(func).collect()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'collect'
+>>> def func(x):return x
+...
+>>> df.foreach(func).collect()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'collect'
+>>> ff= df.foreach(func)
+>>> type(ff)
+<class 'NoneType'>
+>>> from pyspark.sql.functions import concat_ws,col,lit
+>>> df.select(concat_ws(",",df.firstname,df.lastname).alias("name"), \
+...           df.gender,lit(df.salary*2).alias("new_salary")).show()
++---------------+------+----------+
+|           name|gender|new_salary|
++---------------+------+----------+
+|    James,Smith|     M|      6000|
+|       Michael,|     M|      8000|
+|Robert,Williams|     M|      8000|
+|    Maria,Jones|     F|      8000|
+|      Jen,Brown|     F|        -2|
++---------------+------+----------+
+
+>>> df
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> df.toPandas()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 2086, in toPandas
+    require_minimum_pandas_version()
+  File "/usr/lib/spark/python/pyspark/sql/utils.py", line 129, in require_minimum_pandas_version
+    "it was not found." % minimum_pandas_version)
+ImportError: Pandas >= 0.19.2 must be installed; however, it was not found.
+>>> import pandas as pd
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pandas'
+>>> import pandas as pd
+>>> df.toPandas()
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> for i in df.toPandas():
+...     ptinr(i)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+NameError: name 'ptinr' is not defined
+>>> for i in df.toPandas():
+...     print(i)
+...
+firstname
+middlename
+lastname
+dob
+gender
+salary
+>>> for i in df.toPandas():
+...     print(i[0])
+...
+f
+m
+l
+d
+g
+s
+>>> x = df.toPandas()
+>>> x
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> type(x)
+<class 'pandas.core.frame.DataFrame'>
+>>> x.head()
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x.head(1)
+  firstname middlename lastname         dob gender  salary
+0     James               Smith  1991-04-01      M    3000
+>>> x.iterrows()
+<generator object DataFrame.iterrows at 0x7fc16dbf11d0>
+>>> for i in x.iterrows():
+...     print(i)
+...
+(0, firstname          James
+middlename
+lastname           Smith
+dob           1991-04-01
+gender                 M
+salary              3000
+Name: 0, dtype: object)
+(1, firstname        Michael
+middlename          Rose
+lastname
+dob           2000-05-19
+gender                 M
+salary              4000
+Name: 1, dtype: object)
+(2, firstname         Robert
+middlename
+lastname        Williams
+dob           1978-09-05
+gender                 M
+salary              4000
+Name: 2, dtype: object)
+(3, firstname          Maria
+middlename          Anne
+lastname           Jones
+dob           1967-12-01
+gender                 F
+salary              4000
+Name: 3, dtype: object)
+(4, firstname            Jen
+middlename          Mary
+lastname           Brown
+dob           1980-02-17
+gender                 F
+salary                -1
+Name: 4, dtype: object)
+>>> x.iterrows()
+<generator object DataFrame.iterrows at 0x7fc162c86650>
+>>> df
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> df.filter('salary'>22)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: '>' not supported between instances of 'str' and 'int'
+>>> df.filter($'salary' > 22)
+  File "<stdin>", line 1
+    df.filter($'salary' > 22)
+              ^
+SyntaxError: invalid syntax
+>>> df.filter($'salary > 22')
+  File "<stdin>", line 1
+    df.filter($'salary > 22')
+              ^
+SyntaxError: invalid syntax
+>>> df.groupBy('salary')
+<pyspark.sql.group.GroupedData object at 0x7fc1627b9610>
+>>> df.groupBy('salary').show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'GroupedData' object has no attribute 'show'
+>>> df.groupBy('salary').collect()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'GroupedData' object has no attribute 'collect'
+>>> df.groupBy('salary')
+<pyspark.sql.group.GroupedData object at 0x7fc1627cd8d0>
+>>> print(df.groupBy('salary'))
+<pyspark.sql.group.GroupedData object at 0x7fc1627cdc10>
+>>> import spark.implicits._
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'spark'
+>>> df
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> df.select('salary').show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> df.select(df['salary']+22).show()
++-------------+
+|(salary + 22)|
++-------------+
+|         3022|
+|         4022|
+|         4022|
+|         4022|
+|           21|
++-------------+
+
+>>> df.select( df['salary'] + 22 ).show()
++-------------+
+|(salary + 22)|
++-------------+
+|         3022|
+|         4022|
+|         4022|
+|         4022|
+|           21|
++-------------+
+
+>>> df.select( df['salary'] ).show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> df.select('salary' ).show()
++------+
+|salary|
++------+
+|  3000|
+|  4000|
+|  4000|
+|  4000|
+|    -1|
++------+
+
+>>> df.filter( df['salary']>3000 ).show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
++---------+----------+--------+----------+------+------+
+
+>>> import pandas as pd
+>>> df.topandas()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 1307, in __getattr__
+    "'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
+AttributeError: 'DataFrame' object has no attribute 'topandas'
+>>> df.tPpandas()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/spark/python/pyspark/sql/dataframe.py", line 1307, in __getattr__
+    "'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
+AttributeError: 'DataFrame' object has no attribute 'tPpandas'
+>>> df.toPandas()
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x =df.toPandas()
+>>> type(x)
+<class 'pandas.core.frame.DataFrame'>
+>>> x
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x.head()
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x.head(2)
+  firstname middlename lastname         dob gender  salary
+0     James               Smith  1991-04-01      M    3000
+1   Michael       Rose           2000-05-19      M    4000
+>>> x[0]
+Traceback (most recent call last):
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 0
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: 0
+>>> x.iloc(0)
+<pandas.core.indexing._iLocIndexer object at 0x7fc1627a7b30>
+>>> x.iloc(0)[]
+  File "<stdin>", line 1
+    x.iloc(0)[]
+              ^
+SyntaxError: invalid syntax
+>>> x.iloc(0)
+<pandas.core.indexing._iLocIndexer object at 0x7fc1627bacb0>
+>>> x[x.iloc(0)]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 2989, in __getitem__
+    key = com.apply_if_callable(key, self)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/common.py", line 329, in apply_if_callable
+    return maybe_callable(obj, **kwargs)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexing.py", line 607, in __call__
+    axis = self.obj._get_axis_number(axis)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/generic.py", line 460, in _get_axis_number
+    return cls._AXIS_TO_AXIS_NUMBER[axis]
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/generic.py", line 1786, in __hash__
+    f"{repr(type(self).__name__)} objects are mutable, "
+TypeError: 'DataFrame' objects are mutable, thus they cannot be hashed
+>>> x.iloc[2]
+firstname         Robert
+middlename
+lastname        Williams
+dob           1978-09-05
+gender                 M
+salary              4000
+Name: 2, dtype: object
+>>> x.iloc(3)
+Traceback (most recent call last):
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/generic.py", line 460, in _get_axis_number
+    return cls._AXIS_TO_AXIS_NUMBER[axis]
+KeyError: 3
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexing.py", line 607, in __call__
+    axis = self.obj._get_axis_number(axis)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/generic.py", line 462, in _get_axis_number
+    raise ValueError(f"No axis named {axis} for object type {cls.__name__}")
+ValueError: No axis named 3 for object type DataFrame
+>>> x.iloc(0)
+<pandas.core.indexing._iLocIndexer object at 0x7fc1627a7ad0>
+>>> x.iloc[2]
+firstname         Robert
+middlename
+lastname        Williams
+dob           1978-09-05
+gender                 M
+salary              4000
+Name: 2, dtype: object
+>>> x
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x['lastname']
+0       Smith
+1
+2    Williams
+3       Jones
+4       Brown
+Name: lastname, dtype: object
+>>> x[0,3]
+Traceback (most recent call last):
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: (0, 3)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: (0, 3)
+>>> x[][]
+  File "<stdin>", line 1
+    x[][]
+      ^
+SyntaxError: invalid syntax
+>>> x[1][1]
+Traceback (most recent call last):
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: 1
+>>> x[[1]]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 3030, in __getitem__
+    indexer = self.loc._get_listlike_indexer(key, axis=1, raise_missing=True)[1]
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexing.py", line 1266, in _get_listlike_indexer
+    self._validate_read_indexer(keyarr, indexer, axis, raise_missing=raise_missing)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexing.py", line 1308, in _validate_read_indexer
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([1], dtype='int64')] are in the [columns]"
+>>> x[2:3]
+  firstname middlename  lastname         dob gender  salary
+2    Robert             Williams  1978-09-05      M    4000
+>>> x[2]
+Traceback (most recent call last):
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3080, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 70, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 101, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4554, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 4562, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 2
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/frame.py", line 3024, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib64/python3.7/site-packages/pandas/core/indexes/base.py", line 3082, in get_loc
+    raise KeyError(key) from err
+KeyError: 2
+>>> x[2:]
+  firstname middlename  lastname         dob gender  salary
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x.head(3).tail(1)
+  firstname middlename  lastname         dob gender  salary
+2    Robert             Williams  1978-09-05      M    4000
+>>> x
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> x
+  firstname middlename  lastname         dob gender  salary
+0     James                Smith  1991-04-01      M    3000
+1   Michael       Rose            2000-05-19      M    4000
+2    Robert             Williams  1978-09-05      M    4000
+3     Maria       Anne     Jones  1967-12-01      F    4000
+4       Jen       Mary     Brown  1980-02-17      F      -1
+>>> str(x)
+'  firstname middlename  lastname         dob gender  salary\n0     James                Smith  1991-04-01      M    3000\n1   Michael       Rose            2000-05-19      M    4000\n2    Robert             Williams  1978-09-05      M    4000\n3     Maria       Anne     Jones  1967-12-01      F    4000\n4       Jen       Mary     Brown  1980-02-17      F      -1'
+>>> x.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 6 columns):
+ #   Column      Non-Null Count  Dtype
+---  ------      --------------  -----
+ 0   firstname   5 non-null      object
+ 1   middlename  5 non-null      object
+ 2   lastname    5 non-null      object
+ 3   dob         5 non-null      object
+ 4   gender      5 non-null      object
+ 5   salary      5 non-null      int64
+dtypes: int64(1), object(5)
+memory usage: 368.0+ bytes
+>>> x.describe()
+            salary
+count     5.000000
+mean   2999.800000
+std    1732.483824
+min      -1.000000
+25%    3000.000000
+50%    4000.000000
+75%    4000.000000
+max    4000.000000
+>>> df
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> df.show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> df.groupBy('gender').count().show()
++------+-----+
+|gender|count|
++------+-----+
+|     M|    3|
+|     F|    2|
++------+-----+
+
+>>> df.groupBy('gender').avg('salary').show()
++------+------------------+
+|gender|       avg(salary)|
++------+------------------+
+|     M|3666.6666666666665|
+|     F|            1999.5|
++------+------------------+
+
+>>> df
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> df.registerTempTable('emp')
+>>> sqlContext.sql('select * from emp')
+DataFrame[firstname: string, middlename: string, lastname: string, dob: string, gender: string, salary: bigint]
+>>> sqlContext.sql('select * from emp').show()
++---------+----------+--------+----------+------+------+
+|firstname|middlename|lastname|       dob|gender|salary|
++---------+----------+--------+----------+------+------+
+|    James|          |   Smith|1991-04-01|     M|  3000|
+|  Michael|      Rose|        |2000-05-19|     M|  4000|
+|   Robert|          |Williams|1978-09-05|     M|  4000|
+|    Maria|      Anne|   Jones|1967-12-01|     F|  4000|
+|      Jen|      Mary|   Brown|1980-02-17|     F|    -1|
++---------+----------+--------+----------+------+------+
+
+>>> sqlContext.sql('select count(*) from emp group by gender').show()
++--------+
+|count(1)|
++--------+
+|       3|
+|       2|
++--------+
