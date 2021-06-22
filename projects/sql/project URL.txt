@@ -1,0 +1,3 @@
+
+project 1:
+https://medium.com/swlh/data-anlysis-project-for-retail-sales-performance-report-using-sql-6ef1d4443712

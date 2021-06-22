@@ -1,0 +1,3 @@
+Q1. which YEAR, max revenue generated
+Q2. which YEAR, number of booked seats was MAXIMUM
+Q3. which YEAR, the revenue increase was highest as compared to previous month

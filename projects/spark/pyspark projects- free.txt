@@ -1,0 +1,6 @@
+project 1: Healthcare dataset
+https://towardsdatascience.com/healthcare-dataset-with-spark-6bf48019892b
+
+
+project 2: Titanic dataset:
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/5722190290795989/3865595167034368/8175309257345795/latest.html
