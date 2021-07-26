@@ -1,0 +1,27 @@
+
+user/owner --- u
+group  --- g
+others   -- o
+
+-rw-rw-r-- 1 hadoop hadoop   6 Jul 22 06:53 out
+
+chmod u+x,g-rw,o-r out
+
+
+
+-rwx------ 1 hadoop hadoop   6 Jul 22 06:53 out
+
+chmod 777 out
+u    7
+g    7
+o    7
+
+
+-rwxrwxrwx 1 hadoop hadoop   6 Jul 22 06:53 out
+
+chmod 461 out
+
+
+-r--rw---x 1 hadoop hadoop   6 Jul 22 06:53 out
+
+

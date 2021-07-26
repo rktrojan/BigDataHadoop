@@ -1,0 +1,60 @@
+#searching a word in a file
+
+grep -i  "import" xyz.py
+grep -n  "import" xyz.py
+grep  "import" xyz.py
+grep -in  "import" xyz.py
+
+=================
+
+ls
+
+abc1.py  new  new2  out  temp  xyz.py
+=================
+
+grep "new"  (abc1.py  new  new2  out  temp  xyz.py)
+=================
+ls | grep "new"
+new
+new2
+==============
+
+programming in linux
+
+shell scripting
+
+
+a = `ls`
+
+for i in a
+do
+grep -i "import" i
+done
+
+=================
+
+# Hello World Program in Bash Shell
+
+
+#touch abc
+
+#ls -all
+
+#for fl in abc  analytics.sh  pqr  xyz; do touch $fl; done
+
+#for fl in abc  analytics.sh  pqr  xyz; do grep -nfi "hadoop" $fl; done
+
+
+a=4
+
+b=$(( $a/2 ))
+
+if [ $b == 2 ]
+then
+echo $a 
+else 
+echo "OK"
+fi
+
+
+#echo 
