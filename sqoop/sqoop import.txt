@@ -1,8 +1,27 @@
+##Sqoop commands for Hadoop VM
+
+#EXAMPLE 1
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--table orders
+--target-dir /user/cloudera/orders 
 
 
+#EXAMPLE 2
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--table orders
+--target-dir /user/cloudera/orders \
+-m 10
+--split-by oid
 
 
-
+#EXAMPLE 3
+#instead of a table if we want run a query and import the query output
 sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
@@ -14,13 +33,21 @@ sqoop import \
 
 
 
+
+#EXAMPLE 4 - TBD
 --table products  \
 --columns id,name 
 --where "sal>10"
 
+
+#EXAMPLE 5 - TBD
 --fields-terminated-by "," 
 
 
+
+#EXAMPLE 6 - TBD
 --hive-import 
 --create-hive-table 
 --hive-table sqoop_workspace.customers
+
+
