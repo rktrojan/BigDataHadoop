@@ -77,7 +77,7 @@ sqoop import "-Dorg.apache.sqoop.splitter.allow_text_splitter=true"  \
 
 
 
-#EXAMPLE 7 - Sqoop Export
+#EXAMPLE 9 - Sqoop Export
 
 sqoop export \
 --connect jdbc:mysql://ip-172-31-13-137.ec2.internal:3306/academics \
