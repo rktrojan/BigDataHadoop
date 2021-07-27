@@ -5,7 +5,7 @@ sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
 --password cloudera \
---table orders
+--table orders \
 --target-dir /user/cloudera/orders 
 
 
@@ -14,9 +14,9 @@ sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
 --password cloudera \
---table orders
+--table orders \
 --target-dir /user/cloudera/orders \
--m 10
+-m 10 \
 --split-by oid
 
 
@@ -26,9 +26,9 @@ sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
 --password cloudera \
---query 'select count(*) from orders where $CONDITIONS'
+--query 'select count(*) from orders where $CONDITIONS' \
 --target-dir /user/cloudera/orders \
--m 10
+-m 10 \
 --split-by oid
 
 
@@ -36,7 +36,7 @@ sqoop import \
 
 #EXAMPLE 4 - TBD
 --table products  \
---columns id,name 
+--columns id,name \
 --where "sal>10"
 
 
@@ -46,8 +46,44 @@ sqoop import \
 
 
 #EXAMPLE 6 - TBD
---hive-import 
---create-hive-table 
+--hive-import \
+--create-hive-table \ 
 --hive-table sqoop_workspace.customers
+
+
+#EXAMPLE 7
+--table orders \
+vs
+--query 'select * from orders where $CONDITIONS'
+
+
+--table orders \
+--where 'id>2'
+
+vs
+
+--query 'select * from orders where id>2 and $CONDITIONS'  
+
+
+#EXAMPLE 8 - TEXT SPLITTER
+sqoop import "-Dorg.apache.sqoop.splitter.allow_text_splitter=true"  \
+--connect jdbc:mysql://ip-172-31-13-137.ec2.internal:3306/academics \
+--username hive \
+--password cloudera \
+--table students \
+--target-dir /user/hadoop/students_name \
+--split-by name 
+
+
+
+
+#EXAMPLE 7 - Sqoop Export
+
+sqoop export \
+--connect jdbc:mysql://ip-172-31-13-137.ec2.internal:3306/academics \
+--username hive \
+--password cloudera \
+--table students \
+--export-dir /user/hadoop/students \
 
 
