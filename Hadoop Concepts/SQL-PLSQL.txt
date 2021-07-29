@@ -1,0 +1,146 @@
+Hive
+
+HQL  = hive query language  ~= SQL
+
+
+SQL
+
+DDL   -- create/alter/drop/truncate
+DML		-- insert/update/delete/select
+
+drop table emp;
+truncate table emp;
+delete * from emp ;
+
+where emp_cntry='IND';
+
+TCL ---
+AUTO COMMIT --->> ROLLBACK
+
+--------------------------------
+
+
+SELECT  query ------- joins and sub query
+
+
+select * from dept where deptid in (select distinct deptid from emp)
+
+
+-----------------------------------
+
+aggregate queries:
+
+select sum(), min() from emp group by deptid having count(*)>2;
+
+analytical queries:
+
+select rank() over (partition by deptid order by sal) from emp;
+
+==============================
+
+
+
+
+Procedural Language -SQL
+PLSQL --oracle
+
+Transact-sql  -- microsoft sql server DB
+
+declare
+as
+begin
+{
+select ;
+
+insert;
+
+update
+
+delete
+
+} end
+
+
+
+
+
+create or replace function abc
+as
+begin
+{
+insert ;
+
+insert;
+
+insert
+.
+.
+.
+.
+.
+insert
+
+} end
+
+similarly create stored procedure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+From Me to Bhavya Wadhwa:  (Direct Message) 01:30 PM
+https://www.dezyre.com/recipes/explain-usage-of-analytical-functions-hive
+https://www.oreilly.com/library/view/apache-hive-cookbook/9781782161080/ch06s07.html
+From Me to Bhavya Wadhwa:  (Direct Message) 01:37 PM
+https://www.tutorialspoint.com/plsql/plsql_functions.htm
+From Me to Everyone:  01:38 PM
+https://www.tutorialspoint.com/plsql/plsql_functions.htm
+https://www.dezyre.com/recipes/explain-usage-of-analytical-functions-hive
+https://www.oreilly.com/library/view/apache-hive-cookbook/9781782161080/ch06s07.html
+From Manas Rai to Everyone:  01:45 PM
+no
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

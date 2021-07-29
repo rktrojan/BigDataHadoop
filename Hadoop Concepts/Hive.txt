@@ -1,0 +1,25 @@
+Hive
+
+SQL 	-->>>
+PLSQL	><
+
+
+
+internal vs external tables
+HDFS path.....   
+delimiter --> cntrl-A, , |
+
+hive stats
+FILE FORMATS/SERDEs   --- JSON , XML , CSVserde
+
+
+COMPRESSION CODEC
+Also, there are many completely different compression codecs that we are able to use with Hive. Names as 4mc, snappy, lzo, lz4, bzip2, and gzip.
+
+
+PARTIONING and BUCKETING in hive  --- performance 
+
+
+
+
+

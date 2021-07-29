@@ -1,0 +1,47 @@
+
+Hadoop
+
+HDFS layer --->>> NN DN
+MapReduce Layer --- JT TT ---->>>   YARN  yet another resource negotiator
+-------------------------------
+JT  >>> RM + AM
+
+TT>>>   NM + AppMaster + Containers
+
+
+Hadoop 3.0 -- NAMENODE NAMESPACE CONCEPTS
+
+
+LINUX
+
+HDFS commands
+FTP/SFTP
+WINSCP   
+PUTTY
+
+
+
+RDBMS -->>mySQL --- SQL
+RDBMS --->>>ETL (SQOOP IMPORT/EXPORT) ---> HADOOP
+
+
+DB (MySQL/Oracle) --- DW (ETL tools -- INFORMATICA/SAP BODS/ Datastage   ) --- Data lake (HADOOP)
+
+DW (ETL tools) /BI tools(REPORTING ---> TABLEAU QLIK, etc)
+
+OLTP vs OLAP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
