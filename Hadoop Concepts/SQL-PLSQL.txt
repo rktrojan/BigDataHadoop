@@ -85,47 +85,42 @@ insert
 similarly create stored procedure
 
 
+================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-From Me to Bhavya Wadhwa:  (Direct Message) 01:30 PM
-https://www.dezyre.com/recipes/explain-usage-of-analytical-functions-hive
+study links to external websites:
 https://www.oreilly.com/library/view/apache-hive-cookbook/9781782161080/ch06s07.html
-From Me to Bhavya Wadhwa:  (Direct Message) 01:37 PM
-https://www.tutorialspoint.com/plsql/plsql_functions.htm
-From Me to Everyone:  01:38 PM
-https://www.tutorialspoint.com/plsql/plsql_functions.htm
 https://www.dezyre.com/recipes/explain-usage-of-analytical-functions-hive
-https://www.oreilly.com/library/view/apache-hive-cookbook/9781782161080/ch06s07.html
-From Manas Rai to Everyone:  01:45 PM
-no
+https://www.tutorialspoint.com/plsql/plsql_functions.htm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
