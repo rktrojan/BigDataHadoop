@@ -1,5 +1,35 @@
-create table titanic_new(Survived int,Pclass int, Name string,Sex string,	Age int,	Siblings_Aboard int ,ParentsChildren_Aboard int,	Fare float)
+GitHub Link: https://raw.githubusercontent.com/agconti/kaggle-titanic/master/data/train.csv
+
+Column List:
+PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
+
+
+create table if not exists titanic(
+Survived int,
+Pclass int, 
+Name string,
+Sex string,	
+Age int,	
+Siblings_Aboard int ,
+ParentsChildren_Aboard int,	
+Fare float
+);
+ 
+ ---------------------------------------------
+ 
+ create table if not exists titanic_new(
+Survived int,
+Pclass int, 
+Name string,
+Sex string,	
+Age int,	
+Siblings_Aboard int ,
+ParentsChildren_Aboard int,	
+Fare float
+)
  row format delimited 
- fields terminated by ','
+ fields terminated by ',';
  
  
+ 
+  
