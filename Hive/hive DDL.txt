@@ -21,6 +21,46 @@ Cabin string,
 Embarked string
 );
 
+create table if not exists titanic(
+PassengerId int,
+Survived int,
+Pclass int, 
+Name string,
+Sex string,	
+Age int,	
+SibSp int ,
+Parch int,	
+Ticket string,
+Fare float,
+Cabin string,
+Embarked string
+) 
+ row format delimited 
+ fields terminated by ','
+ ;
+ 
+ 
+ 
+create table if not exists titanic_new(
+PassengerId int,
+Survived int,
+Pclass int, 
+Name string,
+Sex string,	
+Age int,	
+SibSp int ,
+Parch int,	
+Ticket string,
+Fare float,
+Cabin string,
+Embarked string
+) 
+ row format  SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde' 
+ WITH 
+ SERDEPROPERTIES 
+ ( "separatorChar" = ",", "quoteChar" = "\"", "escapeChar" = "\\" ) 
+ STORED AS TEXTFILE ;
+ 
 ----------------------------------------------------------------
 create table if not exists titanic(
 Survived int,
