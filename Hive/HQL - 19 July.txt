@@ -1,46 +1,83 @@
- create table orders (oid int, pid int, custid int);
- create external table products ( pid int, pname string, price int);
+--ORDERS and PRODUCTS table analysis
 
- drop table  products;
+CREATE table orders (oid int, pid int, custid int);
+CREATE external table products ( pid int, pname string, price int);
 
- drop table  orders;
+DROP table  if exists products;
+
+DROP table  if exists orders;
 
 #create table SQL
-create table titanic_new(Survived int,Pclass int, Name string,Sex string,Age int,Siblings_Aboard int ,ParentsChildren_Aboard int,Fare float) row format delimited fields terminated by ','
+CREATE table titanic_new 
+(Survived int,Pclass int, Name string,Sex string,Age int,Siblings_Aboard int ,
+ParentsChildren_Aboard int,Fare float) 
+row format delimited 
+fields terminated by ',';
 
 
- select * from titanic_new;
+SELECT * 
+FROM 
+titanic_new;
 
- !hdfs dfs -put titanic_noheader.csv /user/hive/warehouse/hadoop.db/titanic_new
+--hdfs commands from hive console
+!hdfs dfs -put titanic_noheader.csv /user/hive/warehouse/hadoop.db/titanic_new
 
- set hive.execution.engine;
-#check the value--tez or mr
+set hive.execution.engine;
+--check the value--tez or mr
 
  set hive.execution.engine=mr;
  set hive.execution.engine=tez;
  set hive.execution.engine=mr;
 
-#collect stats
- analyze table titanic_new  compute statistics;
 
- select count(*)  from titanic ;
+--collect stats
+ANALYZE TABLE titanic_new  COMPUTE statistics;
 
- desc formatted titanic;
+SELECT count(*)  from titanic ;
 
- select  *  from titanic_new limit 10;
+desc formatted titanic;
 
- select count(*) from titanic_new where sex="male"
+--to view top 10 records
+SELECT  *  from titanic_new limit 10;
 
- select sex,count(*) from titanic_new group by sex;
 
- select pclass,sum(fare),count(age) from titanic_new group by pclass;
+SELECT count(*) 
+ FROM titanic_new 
+ WHERE sex="male";
 
- select sum(fare),count(age) from titanic_new;
 
- select sex,count(*) from titanic_new where age>30 and survived=1 group by sex;
+SELECT sex,count(*) from titanic_new GROUP BY sex;
 
- select name from titanic_new where siblings_aboard+parentschildren_aboard>=5;
 
-select name,siblings_aboard+parentschildren_aboard from titanic_new where siblings_aboard+parentschildren_aboard>=5;
+SELECT pclass,sum(fare),count(age) from titanic_new group by pclass;
 
- select * from (select name,siblings_aboard+parentschildren_aboard as dep from titanic_new where siblings_aboard+parentschildren_aboard>=5) temp order by temp.dep ;
+
+SELECT sum(fare) as sum_fare,count(age) as cnt_age FROM titanic_new;
+
+SELECT sex,count(*) from titanic_new where age>30 and survived=1 group by sex;
+
+SELECT name from titanic_new where siblings_aboard+parentschildren_aboard>=5;
+
+
+SELECT
+name,siblings_aboard+parentschildren_aboard 
+from titanic_new 
+WHERE 
+siblings_aboard+parentschildren_aboard>=5;
+
+
+SELECT
+* 
+FROM 
+(
+select 
+name,siblings_aboard+parentschildren_aboard as dep 
+from titanic_new 
+where 
+siblings_aboard+parentschildren_aboard>=5
+) temp 
+ORDER BY temp.dep ;
+
+
+
+
