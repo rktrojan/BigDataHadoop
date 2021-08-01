@@ -1,0 +1,64 @@
+step 1:
+
+download the analytics dataset from internet e.g kaggle, open gove dataset
+
+for example:
+https://www.kaggle.com/anandhuh/latest-covid19-india-statewise-data
+https://www.kaggle.com/adityakadiwal/water-potability
+https://data.gov.in/major-indicator/drop-out-rate
+https://catalog.data.gov/dataset/new-york-state-career-centers
+
+
+
+step 2:
+Either directly download this data on LINUX or move from your local machine to linux using WinSCP/FTP/SFTP
+
+
+step 3:
+from linux , move the data to Hadoop/HDFS using "hdfs dfs -put <filename>" command
+
+
+step 4:
+create hive table with correct schema 
+identify the hdfs location for this table
+
+step 5:
+move the file from step 3 to the HDFS location of this hive table created in step 4
+
+
+step 6:
+analyse if the data is getting loaded or not, check with select query
+
+
+step 7:
+analyse the need for partioning and bucketing, with proper reason identify why you select partioning or bucketing or both or none
+
+
+
+step 8:
+drop the table and re-create if partioning and bucketing is needed, else keep the table as is
+
+
+
+
+step 9:
+identify some of the ANALYTICS that you can do on this table, note them down and discuss during the next connect
+
+
+step 10:
+Finally create a table in MySQL DB with same schema,
+then using "Sqoop Export", move the data from above hive table or its hdfs directoty to the MySQL table you just created.
+
+
+
+ALL THE BEST...!!!
+
+
+
+
+
+
+
+
+
+
