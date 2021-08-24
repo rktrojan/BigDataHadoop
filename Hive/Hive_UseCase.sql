@@ -95,3 +95,50 @@ point_longitude string ,line string ,
 construction string ,point_granularity string
 );
 
+================================
+
+select 
+sum(temp.counter) as total_passengers,
+temp.stid from 
+( select 
+s.*,
+t.passengerid,
+t.embarked,
+1 as cnt,
+nvl(passengerid,0) as zero,
+
+case when passengerid is not null
+then 1
+else 0
+end 
+as counter
+
+from 
+stations s
+left join
+titanic_new t
+on 
+s.name=t.embarked) temp
+group by temp.stid
+========================================
+drop table titanic111;
+
+create table titanic111
+
+as
+select  
+
+case 
+when sex="male" then 0 
+else 1 
+end as gender_e ,
+
+
+case 
+when embarked="C" then 0 
+when embarked="S" then 1 
+when embarked="Q" then 2 
+end as embarked_e 
+
+ 
+from titanic_new;
