@@ -1,0 +1,13 @@
+
+using sqoop import below tables from mysql to hive
+1. orders
+2. products
+
+Then in Hive, run some SQL queries like
+
+
+
+1. which products were never bought by any customer
+2. which products were mostly cancelled or returned
+3. which are top 3 products that generated maximum revenue
+4. which product category generated maximum revenue

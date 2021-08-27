@@ -1,0 +1,69 @@
+
+%this is for HDFS IMPORT
+sqoop import \
+--connect jdbc:mysql://ip-172-31-32-161:3306/information_schema \
+--username hive \
+--password qdo4yGC1swx6GtMN \
+--table engines \
+--target-dir /user/hadoop/engines \
+-m 1
+
+
+
+
+%this is for HDFS IMPORT with creation of new hive table
+sqoop import \
+--connect jdbc:mysql://ip-172-31-32-161:3306/information_schema \
+--username hive \
+--password qdo4yGC1swx6GtMN \
+--table engines \
+--hive-import \
+--create-hive-table \
+--hive-table engines4 \
+--target-dir /user/hadoop/engines5 \
+-m 1
+
+
+
+
+%this is for HDFS IMPORT by using an existing OLD hive table -- APPEND OPERATION
+sqoop import \
+--connect jdbc:mysql://ip-172-31-32-161:3306/information_schema \
+--username hive \
+--password qdo4yGC1swx6GtMN \
+--table engines \
+--target-dir /user/hadoop/engines5 \
+--hive-import \
+--hive-table engines4 \
+-m 1
+
+
+
+%this is for HDFS IMPORT by using an existing OLD hive table -- OVERWRITE OPERATION
+sqoop import \
+--connect jdbc:mysql://ip-172-31-32-161:3306/information_schema \
+--username hive \
+--password qdo4yGC1swx6GtMN \
+--table engines \
+--target-dir /user/hadoop/engines5 \
+--hive-import \
+--hive-overwrite \
+--hive-table abc \
+-m 1
+
+
+
+%this is for METADATA IMPORT -- means just create table but no data import
+sqoop create-hive-table \
+--connect jdbc:mysql://ip-172-31-32-161:3306/information_schema \
+--username hive \
+--password qdo4yGC1swx6GtMN \
+--table engines \
+--hive-table engines 
+
+
+
+
+
+
+
