@@ -3,7 +3,33 @@ download file from github on the linux machine or Hadoop VM --
 wget https://raw.githubusercontent.com/Shreyas3108/house-price-prediction/master/kc_house_data.csv
 
 
-load this file inside a hive table and solve below queries via SQL --
+[you can use beeline command instead of hive command to access HIVE server/driver] - 
+beeline -u jdbc:hive2://localhost:10000/default 
+ 
+
+create hive table -- here is the DDL 
+
+create table house (
+id string,cdate string,price string,bedrooms string,
+bathrooms string,sqft_living string,sqft_lot string,floors string,
+waterfront string,view string,
+condition string,grade string,
+sqft_above string,sqft_basement string,
+yr_built string,yr_renovated string,
+zipcode string,lat string,long string,
+sqft_living15 string,sqft_lot15 string)
+ row format delimited 
+fields terminated by ",";
+
+
+
+
+
+load this file inside a hive table --
+LOAD DATA LOCAL INPATH "/home/cloudera/house.csv" into table house;
+
+
+And solve below queries via SQL/HQL --
 
 Question 1 - for each combination of bedrooms and bathrooms, tell the count of houses
 Question 2 - Analyse the impact of Floors on the price of house having 3 bedrooms
@@ -11,3 +37,9 @@ Question 3 - In last 5 years, under which category [by bedrooms] of house the ma
 Question 4 - Tell which zip codes have high rise buildings - TOP 5
 Question 5 - Which type of houses are getting renovated more frequently [since they were built]
 Question 6 - In which year, the majority of houses that were built had WATERFRONT
+
+
+
+
+
+
