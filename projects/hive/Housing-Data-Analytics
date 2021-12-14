@@ -1,0 +1,13 @@
+download file from github on the linux machine or Hadoop VM --
+
+wget https://raw.githubusercontent.com/Shreyas3108/house-price-prediction/master/kc_house_data.csv
+
+
+load this file inside a hive table and solve below queries via SQL --
+
+Question 1 - for each combination of bedrooms and bathrooms, tell the count of houses
+Question 2 - Analyse the impact of Floors on the price of house having 3 bedrooms
+Question 3 - In last 5 years, under which category [by bedrooms] of house the maximum renovation happened 
+Question 4 - Tell which zip codes have high rise buildings - TOP 5
+Question 5 - Which type of houses are getting renovated more frequently [since they were built]
+Question 6 - In which year, the majority of houses that were built had WATERFRONT
