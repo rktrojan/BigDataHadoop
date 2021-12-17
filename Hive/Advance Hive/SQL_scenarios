@@ -1,0 +1,26 @@
+
+
+SQL Scenarios:
+
+1. In the month of July, how many applications got rejected 
+2. In which month maximum rejections happened 
+3. In the month of July, whats the percentage of male and female card rejections 
+
+
+
+
+hive -e "select * from model"
+
+
+hive -f query.sql --hiveconf id=1
+hive -f query.sql --hiveconf cntry=IND --hiveconf score=.5 --hiveconf id=2 --hiveconf  id1=3333
+
+
+##Read about the Predicate Pushdown
+
+
+
+#query to generate the explain plan
+hive> explain select score from model ;
+
+
