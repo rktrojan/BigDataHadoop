@@ -1,0 +1,12 @@
+
+Every Hive SQL runs in 4 steps ---> To execute MapReduce Internally
+
+4 steps are mentioned below:
+1. parser
+2. planner -- explain plan --logical plan --physical plan
+3. optimizer --- plan optimization
+4. executor
+
+
+
+
