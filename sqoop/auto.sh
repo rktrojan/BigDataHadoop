@@ -9,7 +9,7 @@ sqoop import \
 --username root \
 --password cloudera \
 --table orders \
---target-dir /user/hadoop/$c \
+--target-dir /user/cloudera/$c \
 -m 6
 
 
