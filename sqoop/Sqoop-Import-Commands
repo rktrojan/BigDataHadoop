@@ -1,4 +1,4 @@
-##Sqoop commands for Hadoop VM
+##Sqoop commands for Hadoop - Data Migration
 
 #EXAMPLE 1  -- make sure that target folder is not already created
 sqoop import \
@@ -61,7 +61,7 @@ sqoop import \
 --where "sal>10" \
 --target-dir /user/cloudera/orders \
 -m 10 \
---split-by oid
+--split-by oid \
 --fields-terminated-by "|" 
 
 
@@ -107,6 +107,7 @@ vs
 --query 'select * from orders where id>2 and $CONDITIONS'  
 
 
+
 #EXAMPLE 8 - TEXT SPLITTER
 sqoop import "-Dorg.apache.sqoop.splitter.allow_text_splitter=true"  \
 --connect jdbc:mysql://ip-172-31-13-137.ec2.internal:3306/academics \
@@ -119,13 +120,13 @@ sqoop import "-Dorg.apache.sqoop.splitter.allow_text_splitter=true"  \
 
 
 
-#EXAMPLE 9 - Sqoop Export
+#EXAMPLE 9 - Sqoop Export Command, here --table means the RDBMS table where you are sending the HDFS data
 
 sqoop export \
 --connect jdbc:mysql://ip-172-31-13-137.ec2.internal:3306/academics \
 --username hive \
 --password cloudera \
 --table students \
---export-dir /user/hadoop/students \
+--export-dir /user/hadoop/students 
 
 
