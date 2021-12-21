@@ -1,6 +1,6 @@
 ##Sqoop commands for Hadoop VM
 
-#EXAMPLE 1
+#EXAMPLE 1  -- make sure that target folder is not already created
 sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
@@ -26,7 +26,7 @@ sqoop import \
 --connect jdbc:mysql://localhost:3306/retail_db \
 --username root \
 --password cloudera \
---query 'select count(*) from orders where $CONDITIONS' \
+--query 'select * from orders where $CONDITIONS' \
 --target-dir /user/cloudera/orders \
 -m 10 \
 --split-by oid
@@ -35,20 +35,62 @@ sqoop import \
 
 
 #EXAMPLE 4 - TBD
+
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--table products  \
+--columns oid,name \
+--where "sal>10" \
+--target-dir /user/cloudera/orders \
+-m 10 \
+--split-by oid
+
+
+
+
+
+#EXAMPLE 5 - changing the file seperator
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
 --table products  \
 --columns id,name \
---where "sal>10"
+--where "sal>10" \
+--target-dir /user/cloudera/orders \
+-m 10 \
+--split-by oid
+--fields-terminated-by "|" 
 
 
-#EXAMPLE 5 - TBD
---fields-terminated-by "," 
 
 
 
-#EXAMPLE 6 - TBD
+#EXAMPLE 6 - Hive Import
 --hive-import \
 --create-hive-table \ 
 --hive-table sqoop_workspace.customers
+
+--FULL COMMAND is below:
+
+sqoop import \
+--connect jdbc:mysql://localhost:3306/retail_db \
+--username root \
+--password cloudera \
+--table products  \
+--target-dir /user/cloudera/products \
+--hive-import \
+--create-hive-table \ 
+--hive-table products 
+
+
+
+
+
+
+
 
 
 #EXAMPLE 7
