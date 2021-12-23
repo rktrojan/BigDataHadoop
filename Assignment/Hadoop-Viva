@@ -1,0 +1,75 @@
+Big Data and Hadoop -  Viva
+
+
+===================================================
+
+Hadoop Conepts and Architecture
+
+6 Vs of BigData - https://medium.com/analytics-vidhya/the-5-vs-of-big-data-2758bfcc51d
+HDFS architecture - https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html
+MapReduce Architecture - 
+
+
+
+
+===================================================
+
+
+Linux - 
+
+split file into 3 files
+search all records in a file that starts with "hadoop"
+delete files starting with  temp ending with .csv
+list all json files
+
+concatenate 2 files and generate third file
+
+
+inside a folder, how many files and how many sub-folders
+
+
+
+
+===================================================
+
+sqoop - correct the below command
+
+
+sqoop import \
+--connect jdbc:mysql://ip-172-31-90-209:3306/? \
+--username hive \
+--table DBS \
+--target-dir /user/hadoop/$c 
+--mapper 6
+
+===================================================
+
+
+Hive -
+
+Internal vs External Table
+Partitioning 
+Bucketing - Hashing
+
+
+
+===================================================
+
+
+
+SQL- Solve below data set related queries
+
+customer_id,order_id , order_amount, product_category, odate
+1,101,400,"books", 1-jan
+2,102,4000,"laptops", 2-jan
+66,103,900,"books", 3-jan
+1,105,70000,"laptops",6-jan
+
+
+1. Number of order placed in month of Jan
+2. In which month max orders were placed
+3. which product_category generated the max revenue or sales
+4. which customer_id did maximum transaction in terms of quantity or number
+5. which customer_id did maximum transaction in terms of sales or amount
+
+===================================================
