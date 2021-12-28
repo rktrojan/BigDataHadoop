@@ -1,0 +1,16 @@
+Read Here - 
+
+NoSQL == Not Only SQL
+
+
+
+SQL-DBs/RDBMS  like  MySQL, Oracle, SAP S/4 HANA, etc.
+
+	VS.
+	
+Hadoop Native Databases/Datastores like Hive, Impala, Kite, Kudu, etc.
+
+	VS.
+	
+NoSQL DBs like Redis, HBase, Cassandra, MongoDB, Neo4j, etc.
+
