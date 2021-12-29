@@ -1,0 +1,46 @@
+spark 1.0 vs 2.0 commands --
+
+SPARK 1.0
+
+RDD=sc.textFile()
+DF=sqlContext.read.csv("")
+
+==================================
+
+SPARK 2.0
+
+DF=sparksession.read.csv()
+DF=sqlContext.read.csv()
+============================================================================================
+
+
+rdd - map vs flatmap--
+
+
+[hello how are you, my name is rahul, how are you]
+
+
+MAP.split()
+[
+[hello ,how, are, you], 
+[my, name ,is, rahul],
+ [how ,are, you]
+ ]
+
+
+rdd = FLATMAP.split()
+[hello, how, are ,you, my, name ,is ,rahul, how, are, you]
+
+
+
+rdd=sc.textFile("emp.csv")
+[hello how are you, my name is rahul, how are you]
+
+rdd.flatmap(lambda x: x.split(","))
+[hello, how, are ,you, my, name ,is ,rahul, how, are, you]
+
+rdd.map(lambda x: (x,1))
+[(hello,1), (how,1), are ,you, my, name ,is ,rahul, how, are, you]
+
+
+

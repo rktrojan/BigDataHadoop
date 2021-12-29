@@ -1,0 +1,18 @@
+
+
+
+
+type data  -- graph data
+
+database  -- graph DB -- neo4j  Neptune
+
+
+processing --->>  Graph Algorithms  -- BFS and DFS 
+
+GraphX -- spark framework 
+Giraph  --- MapReduce framework
+
+
+
+ 
+
