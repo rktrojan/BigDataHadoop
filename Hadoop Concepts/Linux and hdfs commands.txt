@@ -1,3 +1,6 @@
+linux and hdfs commands - 19 July ---
+
+
 wget https://raw.githubusercontent.com/rktrojan/DataSciencePython/master/DataFiles/titanic.csv
 
 ls

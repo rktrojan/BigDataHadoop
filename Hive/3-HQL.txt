@@ -1,3 +1,5 @@
+--HQL - 19 July
+
 --ORDERS and PRODUCTS table analysis
 
 CREATE table orders (oid int, pid int, custid int);
