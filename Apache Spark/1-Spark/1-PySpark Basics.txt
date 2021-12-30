@@ -5,9 +5,32 @@ SCALA -- FUNCTIONAL PROGRAMMING LANGAUGE
 
 PYTHON also supports OOPS/functional prgramming
 
+------------------------------------------------------
+study about:
+1.ecosystm
+2.architecture
+3.spark-submit --parameters 
+	https://spark.apache.org/docs/latest/submitting-applications.html
+4.versions of spark
 
+------------------------------------------------------
 
+spark 1 --  
+sparkcontext
+spark sql
 
+spark 2 -- 
+sparkcontext -- sparksession
+spark sql optimised
+
+spark 3 -- 
+sparkcontext -- sparksession
+SQL optimised ---
+koalas https://koalas.readthedocs.io/en/latest/
+delta lake   
+------------------------------------------------------
+
+================================
 RDD  --- resilient distributed dataset
 types of RDD::
 hadoopRDD
@@ -16,40 +39,13 @@ MapRDD
 
 RDD is IMMUTABLE
 
-================
+================================
 
-//pseudo-code - RDD
-f1 = sc.textFile('emp.csv').map(lambda x:(x,1)).collect()
+Dataframes and Datasets
 
-//pseudo-code - DataFrame/Datasets
-b = sc.sqlcontext.read_csv('emp.csv')
+================================
 
-
-c= sc.toDF(a)
-
---------------------------------------
-
-
-spark RDD
-
-collection --- sc.parallize(data)
-
-file ----   sc.textFile('emp.csv')
-
-
-===================
-spark DF
-
-collection --- sqlContext.createDataFrame()
-
-file --- 	sqlContext.read.csv()
-			sqlContext.read.text()
-			
-			
-			DSL and SQL
-	
-
-
+------------------------------------------------------
 
 
 
