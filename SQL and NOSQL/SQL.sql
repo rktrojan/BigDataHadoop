@@ -1,5 +1,6 @@
 --CTAS 
-
+-- Create a new table temp2 using CTAS (Create Table As Select)
+-- This table stores the sum of price (sm) for each pid where the product category is 'jeans'
 create table temp2 as 
 select sum(price) as sm,pid
 (select * from R where pid in 

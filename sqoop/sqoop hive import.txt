@@ -1,27 +1,26 @@
 
 
-
-
-
+# Sqoop command to import data from MySQL to Hive
 sqoop import \
---connect jdbc:mysql://localhost:3306/retail_db \
---username root \
---password cloudera \
---table orders 
+	--connect jdbc:mysql://localhost:3306/retail_db \        # JDBC connection string to MySQL database
+	--username root \                                      # MySQL username
+	--password cloudera \                                  # MySQL password
+	--table orders \                                       # Source table in MySQL to import
 
---hive-import 
---create-hive-table 
---hive-table default.ord
+	--hive-import \                                        # Import data directly into Hive
+	--create-hive-table \                                  # Create the Hive table if it does not exist
+	--hive-table default.ord \                             # Target Hive table (database.table)
 
+	-m 10 \                                                # Number of parallel map tasks (for faster import)
+	--split-by oid \                                       # Column to split data for parallel import (must be indexed/unique)
 
-
--m 10
---split-by oid
-
-
---table products  \
---columns id,name 
---where "sal>10"
-
---fields-terminated-by "," 
+# Example: Importing specific columns from another table with a condition
+sqoop import \
+	--connect jdbc:mysql://localhost:3306/retail_db \        # JDBC connection string
+	--username root \                                      # MySQL username
+	--password cloudera \                                  # MySQL password
+	--table products \                                     # Source table
+	--columns id,name \                                    # Columns to import
+	--where "sal>10" \                                     # WHERE clause to filter rows
+	--fields-terminated-by ","                              # Field delimiter for output files
 
